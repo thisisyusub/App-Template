@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, authState) {
+          print('reworking...');
           if (authState is Uninitialized) {
             return SplashPage();
           } else if (authState is Unauthenticated) {

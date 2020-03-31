@@ -46,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(registerState.message ?? 'Login Failed!'),
+                            Text(registerState.message ?? 'Register Failed!'),
                             Icon(Icons.error)
                           ],
                         ),
@@ -73,6 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   if (registerState.isSuccess) {
                     BlocProvider.of<AuthenticationBloc>(context)
                         .add(LoggedIn());
+                    Navigator.of(context).pop();
                   }
                 },
                 builder: (context, state) {
