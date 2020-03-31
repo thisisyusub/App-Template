@@ -2,26 +2,25 @@ part of 'register_bloc.dart';
 
 @immutable
 class RegisterState {
-  final bool isEmailValid;
-  final bool isPasswordValid;
+  final bool isIdValid;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final String message;
 
-  bool get isFormValid => isEmailValid && isPasswordValid;
+  bool get isFormValid => isIdValid;
 
   RegisterState({
-    @required this.isEmailValid,
-    @required this.isPasswordValid,
+    @required this.isIdValid,
     @required this.isSubmitting,
     @required this.isSuccess,
     @required this.isFailure,
+    this.message,
   });
 
   factory RegisterState.empty() {
     return RegisterState(
-      isEmailValid: true,
-      isPasswordValid: true,
+      isIdValid: true,
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
@@ -30,18 +29,16 @@ class RegisterState {
 
   factory RegisterState.loading() {
     return RegisterState(
-      isEmailValid: true,
-      isPasswordValid: true,
+      isIdValid: true,
       isSubmitting: true,
       isSuccess: false,
       isFailure: false,
     );
   }
 
-  factory RegisterState.failure() {
+  factory RegisterState.failure([String message]) {
     return RegisterState(
-      isEmailValid: true,
-      isPasswordValid: true,
+      isIdValid: true,
       isSubmitting: false,
       isSuccess: false,
       isFailure: true,
@@ -50,8 +47,7 @@ class RegisterState {
 
   factory RegisterState.success() {
     return RegisterState(
-      isEmailValid: true,
-      isPasswordValid: true,
+      isIdValid: true,
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
@@ -59,12 +55,10 @@ class RegisterState {
   }
 
   RegisterState update({
-    bool isEmailValid,
-    bool isPasswordValid,
+    bool isIdValid,
   }) {
     return copyWith(
-      isEmailValid: isEmailValid,
-      isPasswordValid: isPasswordValid,
+      isIdValid: isIdValid,
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
@@ -72,16 +66,14 @@ class RegisterState {
   }
 
   RegisterState copyWith({
-    bool isEmailValid,
-    bool isPasswordValid,
+    bool isIdValid,
     bool isSubmitEnabled,
     bool isSubmitting,
     bool isSuccess,
     bool isFailure,
   }) {
     return RegisterState(
-      isEmailValid: isEmailValid ?? this.isEmailValid,
-      isPasswordValid: isPasswordValid ?? this.isPasswordValid,
+      isIdValid: isIdValid ?? this.isIdValid,
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
@@ -91,8 +83,7 @@ class RegisterState {
   @override
   String toString() {
     return '''RegisterState {
-      isEmailValid: $isEmailValid,
-      isPasswordValid: $isPasswordValid,
+      isIdValid: $isIdValid,
       isSubmitting: $isSubmitting,
       isSuccess: $isSuccess,
       isFailure: $isFailure,

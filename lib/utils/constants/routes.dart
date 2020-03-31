@@ -3,5 +3,5 @@ class Routes {
 
   static const String home = 'Home';
   static const String login = 'Login';
-  static const String signIn = 'SignIn';
+  static const String register = 'register';
 }

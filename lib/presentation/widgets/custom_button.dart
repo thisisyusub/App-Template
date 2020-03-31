@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String title;
@@ -12,7 +13,10 @@ class CustomButton extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16.0),
       child: RaisedButton(
         onPressed: onButtonClicked,
-        child: Text(title),
+        child: Text(
+          title,
+          style: AppTextStyles.mediumTextStyleV2,
+        ),
       ),
     );
   }

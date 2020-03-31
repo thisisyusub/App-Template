@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
+import 'package:our_apps_template/data/exceptions/http_exception.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:our_apps_template/utils/validators.dart';
 
@@ -25,10 +26,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
+  /// method works when the id is changed
   Stream<LoginState> _mapIdChangedToState(String id) async* {
     yield state.update(isIdValid: Validators.isValidId(id));
   }
 
+  /// method works when login button is clicked
   Stream<LoginState> _mapLoginClickedToState(String id) async* {
     yield LoginState.loading();
     try {
@@ -38,6 +41,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else {
         yield LoginState.failure('User not found!');
       }
+    } on HttpException catch(e) {
+      yield LoginState.failure(e.message);
     } catch (_) {
       yield LoginState.failure('Error occured!');
     }

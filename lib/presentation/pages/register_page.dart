@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.dart';
-import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
+import 'package:our_apps_template/bloc/register_bloc/register_bloc.dart';
 import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
 import 'package:our_apps_template/presentation/widgets/custom_button.dart';
 import 'package:our_apps_template/utils/constants/routes.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _idController = TextEditingController();
 
   @override
@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onIdChanged() {
-    BlocProvider.of<LoginBloc>(context).add(
+    BlocProvider.of<RegisterBloc>(context).add(
       IdChanged(id: _idController.text),
     );
   }
@@ -30,23 +30,23 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login Page'),
+        title: Text('Register Page'),
       ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: BlocConsumer<LoginBloc, LoginState>(
-                listener: (context, loginState) {
-                  if (loginState.isFailure) {
+              child: BlocConsumer<RegisterBloc, RegisterState>(
+                listener: (context, registerState) {
+                  if (registerState.isFailure) {
                     Scaffold.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(SnackBar(
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(loginState.message ?? 'Login Failed!'),
+                            Text(registerState.message ?? 'Login Failed!'),
                             Icon(Icons.error)
                           ],
                         ),
@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                       ));
                   }
 
-                  if (loginState.isSubmitting) {
+                  if (registerState.isSubmitting) {
                     Scaffold.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                           content: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Logging In...'),
+                              Text('Registering...'),
                               CircularProgressIndicator(),
                             ],
                           ),
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
                   }
 
-                  if (loginState.isSuccess) {
+                  if (registerState.isSuccess) {
                     BlocProvider.of<AuthenticationBloc>(context)
                         .add(LoggedIn());
                   }
@@ -112,23 +112,13 @@ class _LoginPageState extends State<LoginPage> {
                         maxLength: 2,
                       ),
                       CustomButton(
-                        'Login',
-                        _isLoginButtonEnabled(state)
-                            ? _onLoginButtonClicked
+                        'Register',
+                        _isRegisterButtonEnabled(state)
+                            ? _onRegisterButtonClicked
                             : null,
                       ),
                       SizedBox(
                         height: 20,
-                      ),
-                      FlatButton(
-                        child: Text(
-                          'Or register',
-                          style: AppTextStyles.mediumTextStyle,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(Routes.register);
-                        },
                       ),
                     ],
                   );
@@ -141,11 +131,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  bool _isLoginButtonEnabled(LoginState state) =>
+  bool _isRegisterButtonEnabled(RegisterState state) =>
       state.isFormValid && !state.isSubmitting && _idController.text.isNotEmpty;
 
-  void _onLoginButtonClicked() {
-    BlocProvider.of<LoginBloc>(context)
-        .add(LoginClicked(id: _idController.text));
+  void _onRegisterButtonClicked() {
+    BlocProvider.of<RegisterBloc>(context)
+        .add(RegisterClicked(id: _idController.text));
   }
 }

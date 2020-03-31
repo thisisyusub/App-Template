@@ -7,44 +7,30 @@ abstract class RegisterEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class EmailChanged extends RegisterEvent {
-  final String email;
+class IdChanged extends RegisterEvent {
+  final String id;
 
-  const EmailChanged({@required this.email});
-
-  @override
-  List<Object> get props => [email];
+  const IdChanged({@required this.id});
 
   @override
-  String toString() => 'EmailChanged { email :$email }';
+  List<Object> get props => [id];
+
+  @override
+  String toString() => 'IdChanged { id :$id }';
 }
 
-class PasswordChanged extends RegisterEvent {
-  final String password;
+class RegisterClicked extends RegisterEvent {
+  final String id;
 
-  const PasswordChanged({@required this.password});
-
-  @override
-  List<Object> get props => [password];
-
-  @override
-  String toString() => 'PasswordChanged { password: $password }';
-}
-
-class Submitted extends RegisterEvent {
-  final String email;
-  final String password;
-
-  const Submitted({
-    @required this.email,
-    @required this.password,
+  const RegisterClicked({
+    @required this.id,
   });
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [id];
 
   @override
   String toString() {
-    return 'Submitted { email: $email, password: $password }';
+    return 'Submitted { email: $id}';
   }
 }
