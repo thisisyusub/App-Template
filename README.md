@@ -1,4 +1,4 @@
-# our_apps_template
+# Our Apps Template
 
 A new Flutter project.
 
