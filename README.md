@@ -1,4 +1,4 @@
-# Our Apps Template
+# My Apps Architecture
 
 A new Flutter project.
 
