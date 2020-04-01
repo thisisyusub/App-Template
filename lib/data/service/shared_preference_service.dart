@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:our_apps_template/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,4 +41,9 @@ class SharedPreferencesService {
 
   bool get isDarkModeEnabled =>
       _preferences.getBool(SharedPrefKeys.darkModeEnabled);
+
+  Future<void> setLanguage(String langCode) async =>
+  await _preferences.setString(SharedPrefKeys.languageCode, langCode);
+
+  String get languageCode => _preferences.getString(SharedPrefKeys.languageCode);
 }

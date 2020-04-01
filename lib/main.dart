@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:our_apps_template/bloc/language_bloc/language_bloc.dart'
+    show LanguageBloc;
 import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
 import 'package:our_apps_template/data/data_provider/user_data_provider.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
@@ -9,6 +12,7 @@ import 'package:our_apps_template/presentation/pages/login_page.dart';
 import 'package:our_apps_template/presentation/pages/splash_page.dart';
 import 'package:our_apps_template/presentation/router.dart';
 import 'package:our_apps_template/presentation/shared/app_colors.dart';
+import 'package:our_apps_template/utils/app_localizations.dart';
 import 'package:our_apps_template/utils/simple_bloc_delegate.dart';
 
 void main() async {
@@ -21,10 +25,16 @@ void main() async {
   runApp(
     new RepositoryProvider(
       create: (_) => userRepository,
-      child: new BlocProvider(
-        create: (_) => new AuthenticationBloc(userRepository: userRepository)
-          ..add(new AppStarted()),
-        child: new MyApp(),
+      child: BlocProvider(
+        create: (_) => AuthenticationBloc(userRepository: userRepository),
+        child: Builder(
+          builder: (context)  {
+          context.bloc<AuthenticationBloc>()
+          .add(AppStarted());
+
+           return MyApp();
+          }
+        ),
       ),
     ),
   );
@@ -45,6 +55,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        AppLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('az', 'AZ'),
+      ],
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
         primaryColor: AppColors.mainColor,
