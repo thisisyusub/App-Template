@@ -13,16 +13,18 @@ import 'package:our_apps_template/utils/simple_bloc_delegate.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+  BlocSupervisor.delegate = new SimpleBlocDelegate();
 
-  final userDataProvider = UserDataProvider();
+  final userDataProvider = new UserDataProvider();
+  final userRepository = new UserRepository(userDataProvider: userDataProvider);
 
   runApp(
-    RepositoryProvider(
-      create: (_) => new UserRepository(userDataProvider: userDataProvider),
-      child: BlocProvider(
-        create: (_) => AuthenticationBloc()..add(AppStarted()),
-        child: MyApp(),
+    new RepositoryProvider(
+      create: (_) => userRepository,
+      child: new BlocProvider(
+        create: (_) => new AuthenticationBloc(userRepository: userRepository)
+          ..add(new AppStarted()),
+        child: new MyApp(),
       ),
     ),
   );
@@ -30,7 +32,7 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _MyAppState createState() => new _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
@@ -42,36 +44,36 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return new MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+      theme: new ThemeData(
         primaryColor: AppColors.mainColor,
         primaryColorDark: AppColors.secondDaryColor,
         accentColor: AppColors.accentColor,
         scaffoldBackgroundColor: AppColors.mainColor,
         cursorColor: Colors.white,
-        buttonTheme: ButtonThemeData(
+        buttonTheme: new ButtonThemeData(
           buttonColor: Colors.white,
           height: 50,
           minWidth: double.infinity,
         ),
       ),
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      home: new BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, authState) {
           if (authState is Uninitialized) {
-            return SplashPage();
+            return new SplashPage();
           } else if (authState is Unauthenticated) {
-            return BlocProvider(
-              create: (_) => LoginBloc(
+            return new BlocProvider(
+              create: (_) => new LoginBloc(
                 userRepository: RepositoryProvider.of<UserRepository>(context),
               ),
-              child: LoginPage(),
+              child: new LoginPage(),
             );
           } else if (authState is Authenticated) {
-            return HomePage();
+            return new HomePage();
           }
 
-          return Container();
+          return new Container();
         },
       ),
       onGenerateRoute: Router.onGenerateRoute,

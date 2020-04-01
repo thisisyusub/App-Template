@@ -1,5 +1,6 @@
 import 'package:our_apps_template/data/model/user.dart';
 import 'package:our_apps_template/data/service/api_service.dart';
+import 'package:our_apps_template/data/service/shared_preference_service.dart';
 import 'package:our_apps_template/utils/exceptions.dart';
 
 class UserDataProvider {

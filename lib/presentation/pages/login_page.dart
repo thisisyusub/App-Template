@@ -8,11 +8,11 @@ import 'package:our_apps_template/utils/constants.dart' show Routes;
 
 class LoginPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginPageState createState() => new _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _idController = new TextEditingController();
 
   @override
   void initState() {
@@ -22,33 +22,33 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onIdChanged() {
     BlocProvider.of<LoginBloc>(context).add(
-      IdChanged(id: _idController.text),
+      new IdChanged(id: _idController.text),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login Page'),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Login Page'),
       ),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
+      body: new SafeArea(
+        child:new Center(
+          child: new SingleChildScrollView(
+            child:new Padding(
               padding: const EdgeInsets.all(16.0),
-              child: BlocConsumer<LoginBloc, LoginState>(
+              child:new BlocConsumer<LoginBloc, LoginState>(
                 listener: (context, loginState) {
                   if (loginState.isFailure) {
                     print('Login Page: ${loginState.message}');
                     Scaffold.of(context)
                       ..hideCurrentSnackBar()
-                      ..showSnackBar(SnackBar(
-                        content: Row(
+                      ..showSnackBar(new SnackBar(
+                        content:new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(loginState.message),
-                            Icon(Icons.error)
+                           new Text(loginState.message),
+                            new Icon(Icons.error)
                           ],
                         ),
                         backgroundColor: Colors.red,
@@ -59,12 +59,12 @@ class _LoginPageState extends State<LoginPage> {
                     Scaffold.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
-                        SnackBar(
-                          content: Row(
+                       new SnackBar(
+                          content:new Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Logging In...'),
-                              CircularProgressIndicator(),
+                              new Text('Logging In...'),
+                              new CircularProgressIndicator(),
                             ],
                           ),
                         ),
@@ -73,33 +73,33 @@ class _LoginPageState extends State<LoginPage> {
 
                   if (loginState.isSuccess) {
                     BlocProvider.of<AuthenticationBloc>(context)
-                        .add(LoggedIn());
+                        .add(new LoggedIn());
                   }
                 },
                 builder: (context, state) {
-                  return Column(
+                  return new Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      TextFormField(
+                      new TextFormField(
                         validator: (_) {
                           return !state.isIdValid ? 'Invalid Id' : null;
                         },
                         controller: _idController,
                         keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
+                        decoration:new InputDecoration(
+                          enabledBorder:new OutlineInputBorder(
+                            borderSide:  const  BorderSide(
+                              color: Colors.white,
+                              width: 1,
+                            ),
+                          ),
+                          disabledBorder: new OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Colors.white,
                               width: 1,
                             ),
                           ),
-                          disabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.white,
-                              width: 1,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder:new OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Colors.white,
                               width: 1,
@@ -112,17 +112,17 @@ class _LoginPageState extends State<LoginPage> {
                         style: AppTextStyles.mediumTextStyle,
                         maxLength: 2,
                       ),
-                      CustomButton(
+                      new CustomButton(
                         'Login',
                         _isLoginButtonEnabled(state)
                             ? _onLoginButtonClicked
-                            : null,
+                            : null
                       ),
-                      SizedBox(
+                      new SizedBox(
                         height: 20,
                       ),
-                      FlatButton(
-                        child: Text(
+                      new FlatButton(
+                        child: new Text(
                           'Or register',
                           style: AppTextStyles.mediumTextStyle,
                         ),
@@ -146,6 +146,6 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onLoginButtonClicked() {
     BlocProvider.of<LoginBloc>(context)
-        .add(LoginClicked(id: _idController.text));
+        .add(new LoginClicked(id: _idController.text));
   }
 }
