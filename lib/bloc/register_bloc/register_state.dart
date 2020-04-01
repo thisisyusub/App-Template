@@ -38,6 +38,7 @@ class RegisterState {
 
   factory RegisterState.failure([String message]) {
     return RegisterState(
+      message: message,
       isIdValid: true,
       isSubmitting: false,
       isSuccess: false,

@@ -1,55 +1,42 @@
-import 'package:our_apps_template/data/exceptions/http_exception.dart';
-import 'package:our_apps_template/data/model/user.dart';
-import 'package:our_apps_template/data/service/api_service.dart';
+import 'package:our_apps_template/data/data_provider/user_data_provider.dart';
+import 'package:meta/meta.dart';
+import 'package:our_apps_template/data/service/shared_preference_service.dart';
+import 'package:our_apps_template/utils/exceptions.dart';
 
 class UserRepository {
-  final _apiService = ApiService();
+  UserRepository({@required this.userDataProvider})
+      : assert(userDataProvider != null);
 
-  /// Method is used to login user by his/her id
-  /// it search in users from json placeholder api
-  /// and return result
-  Future<bool> loginUser(String userId) async {
-    String endPoint = '/users';
+  final UserDataProvider userDataProvider;
+
+  Future<void> login(String userId) async {
     try {
-      final result = await _apiService.dio.get(endPoint);
-      if (result.statusCode == 200) {
-        final converted = result.data.map((x) => User.fromJson(x)).toList();
+      final userData = await userDataProvider.loginAndGetUserData(userId);
 
-        for (int eachUser = 0; eachUser < converted.length; eachUser++) {
-          if (converted[eachUser].id.toString() == userId) {
-            return true;
-          }
-        }
+      // TODO: write user data to database
 
-        return false;
-      } else {
-        throw HttpException('Error occured with ${result.statusCode}');
-      }
-    } catch (e) {
-      throw HttpException(e);
+      // make user logged in
+      await (await SharedPreferencesService.instance).setUserLogInfo(true);
+    } on UserNotFoundException catch (_) {
+      throw UserNotFoundException();
+    } on HttpException catch (e) {
+      throw HttpException(e.message);
     }
   }
 
-  /// It is the same because it is fake API :)
-  Future<bool> registerUser(String userId) async {
-    String endPoint = '/users';
+  Future<void> register(String userId) async {
     try {
-      final result = await _apiService.dio.get(endPoint);
-      if (result.statusCode == 200) {
-        final converted = result.data.map((x) => User.fromJson(x)).toList();
+      final userData = await userDataProvider.registerAndGetUserData(userId);
 
-        for (int eachUser = 0; eachUser < converted.length; eachUser++) {
-          if (converted[eachUser].id.toString() == userId) {
-            return true;
-          }
-        }
+      // TODO: write user data to database
 
-        return false;
-      } else {
-        throw HttpException('Register rrror occured with ${result.statusCode}');
-      }
-    } catch (e) {
-      throw HttpException(e);
+      // make user logged in
+      await (await SharedPreferencesService.instance).setUserLogInfo(true);
+      return true;
+    } on RegistrationFaultException catch (e) {
+      throw RegistrationFaultException(e.message);
+    } on HttpException catch (e) {
+      throw HttpException(e.message);
     }
   }
 }

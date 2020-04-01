@@ -4,7 +4,6 @@ import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.d
 import 'package:our_apps_template/bloc/register_bloc/register_bloc.dart';
 import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
 import 'package:our_apps_template/presentation/widgets/custom_button.dart';
-import 'package:our_apps_template/utils/constants/routes.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -46,7 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(registerState.message ?? 'Register Failed!'),
+                            Text(registerState.message),
                             Icon(Icons.error)
                           ],
                         ),

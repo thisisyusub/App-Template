@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
+import 'package:our_apps_template/data/data_provider/user_data_provider.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:our_apps_template/presentation/pages/home_page.dart';
 import 'package:our_apps_template/presentation/pages/login_page.dart';
@@ -14,9 +15,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = SimpleBlocDelegate();
 
+  final userDataProvider = UserDataProvider();
+
   runApp(
     RepositoryProvider(
-      create: (_) => new UserRepository(),
+      create: (_) => new UserRepository(userDataProvider: userDataProvider),
       child: BlocProvider(
         create: (_) => AuthenticationBloc()..add(AppStarted()),
         child: MyApp(),
@@ -55,7 +58,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, authState) {
-          print('reworking...');
           if (authState is Uninitialized) {
             return SplashPage();
           } else if (authState is Unauthenticated) {

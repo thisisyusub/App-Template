@@ -1,15 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:our_apps_template/data/exceptions/http_exception.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
+import 'package:our_apps_template/utils/exceptions.dart';
 import 'package:our_apps_template/utils/validators.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  RegisterBloc({@required this.userRepository}) : assert(userRepository != null);
+  RegisterBloc({@required this.userRepository})
+      : assert(userRepository != null);
 
   final UserRepository userRepository;
 
@@ -19,11 +20,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   @override
   Stream<RegisterState> mapEventToState(
     RegisterEvent event,
-  ) async* {if (event is IdChanged) {
-    yield* _mapIdChangedToState(event.id);
-  } else if (event is RegisterClicked) {
-    yield* _mapRegisterClickedToState(event.id);
-  }}
+  ) async* {
+    if (event is IdChanged) {
+      yield* _mapIdChangedToState(event.id);
+    } else if (event is RegisterClicked) {
+      yield* _mapRegisterClickedToState(event.id);
+    }
+  }
 
   /// method works when the id is changed
   Stream<RegisterState> _mapIdChangedToState(String id) async* {
@@ -34,16 +37,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   Stream<RegisterState> _mapRegisterClickedToState(String id) async* {
     yield RegisterState.loading();
     try {
-      final bool result = await userRepository.registerUser(id);
-      if (result) {
-        yield RegisterState.success();
-      } else {
-        yield RegisterState.failure('Register is not possible!');
-      }
-    } on HttpException catch(e) {
-      yield RegisterState.failure(e.message);
-    } catch (_) {
-      yield RegisterState.failure('Error occured!');
+      await userRepository.register(id);
+      yield RegisterState.success();
+    } on RegistrationFaultException catch (e) {
+      yield RegisterState.failure(e.toString());
+    } on HttpException catch (e) {
+      yield RegisterState.failure(e.toString());
+    } catch (e) {
+      yield RegisterState.failure(e.toString());
     }
   }
 }

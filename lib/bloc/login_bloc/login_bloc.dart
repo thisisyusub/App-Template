@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:our_apps_template/data/exceptions/http_exception.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
+import 'package:our_apps_template/utils/exceptions.dart';
 import 'package:our_apps_template/utils/validators.dart';
 
 part 'login_event.dart';
@@ -35,16 +35,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _mapLoginClickedToState(String id) async* {
     yield LoginState.loading();
     try {
-      final bool result = await userRepository.loginUser(id);
-      if (result) {
-        yield LoginState.success();
-      } else {
-        yield LoginState.failure('User not found!');
-      }
-    } on HttpException catch(e) {
-      yield LoginState.failure(e.message);
-    } catch (_) {
-      yield LoginState.failure('Error occured!');
+      await userRepository.login(id);
+      yield LoginState.success();
+    } on UserNotFoundException catch (e) {
+      print('user in not found exception');
+      print(e.toString());
+      yield LoginState.failure(e.toString());
+    } on HttpException catch (e) {
+      print('user in not http exception');
+      yield LoginState.failure(e.toString());
+    } catch (e) {
+      print('user in not exception');
+      yield LoginState.failure(e.toString());
     }
   }
 }

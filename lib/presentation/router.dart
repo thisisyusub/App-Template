@@ -7,7 +7,7 @@ import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:our_apps_template/presentation/pages/home_page.dart';
 import 'package:our_apps_template/presentation/pages/login_page.dart';
 import 'package:our_apps_template/presentation/pages/register_page.dart';
-import 'package:our_apps_template/utils/constants/routes.dart';
+import 'package:our_apps_template/utils/constants.dart';
 
 class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {

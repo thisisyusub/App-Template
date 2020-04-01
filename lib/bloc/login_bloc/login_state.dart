@@ -38,6 +38,7 @@ class LoginState {
 
   factory LoginState.failure([String message]) {
     return LoginState(
+      message: message,
       isIdValid: true,
       isSubmitting: false,
       isSuccess: false,

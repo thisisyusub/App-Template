@@ -4,7 +4,7 @@ import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.d
 import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
 import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
 import 'package:our_apps_template/presentation/widgets/custom_button.dart';
-import 'package:our_apps_template/utils/constants/routes.dart';
+import 'package:our_apps_template/utils/constants.dart' show Routes;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -40,13 +40,14 @@ class _LoginPageState extends State<LoginPage> {
               child: BlocConsumer<LoginBloc, LoginState>(
                 listener: (context, loginState) {
                   if (loginState.isFailure) {
+                    print('Login Page: ${loginState.message}');
                     Scaffold.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(SnackBar(
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(loginState.message ?? 'Login Failed!'),
+                            Text(loginState.message),
                             Icon(Icons.error)
                           ],
                         ),
@@ -126,8 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: AppTextStyles.mediumTextStyle,
                         ),
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(Routes.register);
+                          Navigator.of(context).pushNamed(Routes.register);
                         },
                       ),
                     ],
