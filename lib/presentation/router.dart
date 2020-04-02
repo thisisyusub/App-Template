@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
+import 'package:our_apps_template/bloc/post_bloc/post_bloc.dart';
 import 'package:our_apps_template/bloc/register_bloc/register_bloc.dart';
+import 'package:our_apps_template/data/repository/post_repository.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:our_apps_template/presentation/pages/home_page.dart';
 import 'package:our_apps_template/presentation/pages/login_page.dart';
@@ -13,7 +15,14 @@ class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case Routes.home:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => PostBloc(
+                      postRepository:
+                          RepositoryProvider.of<PostRepository>(context))
+                    ..add(FetchPostsRequested()),
+                  child: HomePage(),
+                ));
         break;
       case Routes.login:
         return MaterialPageRoute(

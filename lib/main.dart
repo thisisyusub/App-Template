@@ -5,6 +5,8 @@ import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.d
 import 'package:our_apps_template/bloc/language_bloc/language_bloc.dart'
     show LanguageBloc;
 import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
+import 'package:our_apps_template/bloc/post_bloc/post_bloc.dart';
+import 'package:our_apps_template/data/data_provider/post_data_provider.dart';
 import 'package:our_apps_template/data/data_provider/user_data_provider.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:our_apps_template/presentation/pages/home_page.dart';
@@ -14,6 +16,8 @@ import 'package:our_apps_template/presentation/router.dart';
 import 'package:our_apps_template/presentation/shared/app_colors.dart';
 import 'package:our_apps_template/utils/app_localizations.dart';
 import 'package:our_apps_template/utils/simple_bloc_delegate.dart';
+
+import 'data/repository/post_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,14 +31,11 @@ void main() async {
       create: (_) => userRepository,
       child: BlocProvider(
         create: (_) => AuthenticationBloc(userRepository: userRepository),
-        child: Builder(
-          builder: (context)  {
-          context.bloc<AuthenticationBloc>()
-          .add(AppStarted());
+        child: Builder(builder: (context) {
+          context.bloc<AuthenticationBloc>().add(AppStarted());
 
-           return MyApp();
-          }
-        ),
+          return MyApp();
+        }),
       ),
     ),
   );
@@ -89,7 +90,22 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               child: new LoginPage(),
             );
           } else if (authState is Authenticated) {
-            return new HomePage();
+            return new RepositoryProvider(
+              create: (_) => PostRepository(
+                postDataProvider: PostDataProvider(),
+              ),
+              child: Builder(
+                builder: (context) {
+                  return new BlocProvider(
+                    create: (_) => PostBloc(
+                        postRepository:
+                            RepositoryProvider.of<PostRepository>(context))
+                      ..add(FetchPostsRequested()),
+                    child: HomePage(),
+                  );
+                },
+              ),
+            );
           }
 
           return new Container();
