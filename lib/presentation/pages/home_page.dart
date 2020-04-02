@@ -2,14 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:our_apps_template/bloc/post_bloc/post_bloc.dart';
+import 'package:our_apps_template/bloc/home_bloc//home_bloc.dart';
+import 'package:our_apps_template/data/model/user.dart';
 import 'package:our_apps_template/presentation/dialogs/log_out_dialog.dart';
 import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
+import 'package:our_apps_template/presentation/widgets/custom_drawer.dart';
 
 class HomePage extends StatelessWidget {
+  final User user;
+
+HomePage(this.user) : assert(user != null);
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      drawer: CustomDrawer(user),
       appBar: AppBar(
         title: Text('Home Page'),
         actions: <Widget>[
@@ -25,7 +32,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocBuilder<PostBloc, PostState>(
+      body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, postState) {
           if (postState is PostLoadFailure) {
             _buildPostLoadFailureWidget(postState);
@@ -73,8 +80,9 @@ class HomePage extends StatelessWidget {
             ),
             title: Text(posts[index].title),
             subtitle: Text(posts[index].body),
-            trailing: CircleAvatar(
-              child: Text(posts[index].id.toString()),
+            trailing: IconButton(
+              icon: Icon(Icons.favorite_border),
+              onPressed: () {},
             ),
             isThreeLine: true,
           ),

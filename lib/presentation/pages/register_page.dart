@@ -71,7 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   if (registerState.isSuccess) {
                     BlocProvider.of<AuthenticationBloc>(context)
-                        .add(LoggedIn());
+                        .add(LoggedIn(registerState.user));
                     Navigator.of(context).pop();
                   }
                 },

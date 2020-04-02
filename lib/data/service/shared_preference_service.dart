@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:our_apps_template/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,7 +42,18 @@ class SharedPreferencesService {
       _preferences.getBool(SharedPrefKeys.darkModeEnabled);
 
   Future<void> setLanguage(String langCode) async =>
-  await _preferences.setString(SharedPrefKeys.languageCode, langCode);
+      await _preferences.setString(SharedPrefKeys.languageCode, langCode);
 
-  String get languageCode => _preferences.getString(SharedPrefKeys.languageCode);
+  String get languageCode =>
+      _preferences.getString(SharedPrefKeys.languageCode);
+
+  Future<void> setUsername(String userName) async =>
+      await _preferences.setString(SharedPrefKeys.username, userName);
+
+  String get username => _preferences.getString(SharedPrefKeys.username);
+
+  Future<void> setUserEmail(String email) async =>
+      await _preferences.setString(SharedPrefKeys.email, email);
+
+  String get userEmail => _preferences.getString(SharedPrefKeys.email);
 }

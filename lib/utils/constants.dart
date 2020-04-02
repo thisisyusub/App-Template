@@ -5,6 +5,8 @@ class SharedPrefKeys {
   static const String loggedIn = 'loggedIn';
   static const String darkModeEnabled = 'darkModeEnabled';
   static const String languageCode = 'languageCode';
+  static const String username = 'username';
+  static const String email = 'email';
 }
 
 /// Constants for Routes

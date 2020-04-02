@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
+import 'package:our_apps_template/data/model/user.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:our_apps_template/utils/exceptions.dart';
 import 'package:our_apps_template/utils/validators.dart';
@@ -35,8 +36,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _mapLoginClickedToState(String id) async* {
     yield LoginState.loading();
     try {
-      await userRepository.login(id);
-      yield LoginState.success();
+      final user =  await userRepository.login(id);
+      yield LoginState.success(user);
     } on UserNotFoundException catch (e) {
       print('user in not found exception');
       print(e.toString());

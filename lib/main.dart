@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.dart';
-import 'package:our_apps_template/bloc/language_bloc/language_bloc.dart'
-    show LanguageBloc;
 import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
-import 'package:our_apps_template/bloc/post_bloc/post_bloc.dart';
+import 'package:our_apps_template/bloc/home_bloc//home_bloc.dart';
 import 'package:our_apps_template/data/data_provider/post_data_provider.dart';
 import 'package:our_apps_template/data/data_provider/user_data_provider.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
@@ -30,12 +28,9 @@ void main() async {
     new RepositoryProvider(
       create: (_) => userRepository,
       child: BlocProvider(
-        create: (_) => AuthenticationBloc(userRepository: userRepository),
-        child: Builder(builder: (context) {
-          context.bloc<AuthenticationBloc>().add(AppStarted());
-
-          return MyApp();
-        }),
+        create: (_) => AuthenticationBloc(userRepository: userRepository)
+          ..add(AppStarted()),
+        child: MyApp(),
       ),
     ),
   );
@@ -71,7 +66,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         primaryColorDark: AppColors.secondDaryColor,
         accentColor: AppColors.accentColor,
         scaffoldBackgroundColor: AppColors.mainColor,
-        cursorColor: Colors.white,
         buttonTheme: new ButtonThemeData(
           buttonColor: Colors.white,
           height: 50,
@@ -96,12 +90,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               ),
               child: Builder(
                 builder: (context) {
-                  return new BlocProvider(
-                    create: (_) => PostBloc(
-                        postRepository:
-                            RepositoryProvider.of<PostRepository>(context))
-                      ..add(FetchPostsRequested()),
-                    child: HomePage(),
+                  return new BlocProvider<HomeBloc>(
+                    create: (_) => HomeBloc(
+                      postRepository:
+                          RepositoryProvider.of<PostRepository>(context),
+                    )..add(FetchPostsRequested()),
+                    child: HomePage(authState.user),
                   );
                 },
               ),

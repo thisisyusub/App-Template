@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   if (loginState.isSuccess) {
                     BlocProvider.of<AuthenticationBloc>(context)
-                        .add(new LoggedIn());
+                        .add(new LoggedIn(loginState.user));
                   }
                 },
                 builder: (context, state) {

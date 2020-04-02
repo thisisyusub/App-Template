@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:our_apps_template/data/model/user.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:our_apps_template/data/service/shared_preference_service.dart';
@@ -28,7 +29,12 @@ class AuthenticationBloc
       final userLogged = (await SharedPreferencesService.instance).isUserLogged;
       if (userLogged != null) {
         if (userLogged) {
-          yield Authenticated('Test');
+          yield Authenticated(User(
+            username: 'Kanan Yusubov',
+            name: 'Kanan',
+            email: 'kanan.yusubov@gmail.com',
+            id: 1,
+          ));
         } else {
           yield Unauthenticated();
         }
@@ -36,7 +42,7 @@ class AuthenticationBloc
         yield Unauthenticated();
       }
     } else if (event is LoggedIn) {
-      yield Authenticated('Test');
+      yield Authenticated(event.user);
     } else if (event is LoggedOut) {
       (await SharedPreferencesService.instance).setUserLogInfo(false);
       yield Unauthenticated();

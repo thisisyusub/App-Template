@@ -10,6 +10,13 @@ class AppStarted extends AuthenticationEvent {
   String toString() => 'Authentication: AppStarted';
 }
 
-class LoggedIn extends AuthenticationEvent {}
+class LoggedIn extends AuthenticationEvent {
+  final User user;
+
+  LoggedIn(this.user) : assert(user != null);
+
+  @override
+  List<Object> get props => [user];
+}
 
 class LoggedOut extends AuthenticationEvent {}

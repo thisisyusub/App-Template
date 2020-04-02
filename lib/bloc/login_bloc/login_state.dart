@@ -7,6 +7,7 @@ class LoginState {
   final bool isSuccess;
   final bool isFailure;
   final String message;
+  final User user;
 
   bool get isFormValid => isIdValid;
 
@@ -16,6 +17,7 @@ class LoginState {
     @required this.isSuccess,
     @required this.isFailure,
     this.message,
+    this.user,
   });
 
   factory LoginState.empty() {
@@ -46,8 +48,9 @@ class LoginState {
     );
   }
 
-  factory LoginState.success() {
+  factory LoginState.success([User user]) {
     return LoginState(
+      user: user,
       isIdValid: true,
       isSubmitting: false,
       isSuccess: true,

@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
+import 'package:our_apps_template/data/model/user.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:our_apps_template/utils/exceptions.dart';
 import 'package:our_apps_template/utils/validators.dart';
@@ -37,8 +38,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   Stream<RegisterState> _mapRegisterClickedToState(String id) async* {
     yield RegisterState.loading();
     try {
-      await userRepository.register(id);
-      yield RegisterState.success();
+      final user = await userRepository.register(id);
+      yield RegisterState.success(user);
     } on RegistrationFaultException catch (e) {
       yield RegisterState.failure(e.toString());
     } on HttpException catch (e) {
