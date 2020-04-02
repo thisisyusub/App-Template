@@ -62,8 +62,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       ],
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
+        brightness: Brightness.light,
         primaryColor: AppColors.mainColor,
-        primaryColorDark: AppColors.secondDaryColor,
+        primaryColorDark: AppColors.secondaryColor,
         accentColor: AppColors.accentColor,
         scaffoldBackgroundColor: AppColors.mainColor,
         buttonTheme: new ButtonThemeData(

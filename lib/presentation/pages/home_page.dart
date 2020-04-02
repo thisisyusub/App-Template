@@ -4,14 +4,13 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_apps_template/bloc/home_bloc//home_bloc.dart';
 import 'package:our_apps_template/data/model/user.dart';
-import 'package:our_apps_template/presentation/dialogs/log_out_dialog.dart';
 import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
 import 'package:our_apps_template/presentation/widgets/custom_drawer.dart';
 
 class HomePage extends StatelessWidget {
   final User user;
 
-HomePage(this.user) : assert(user != null);
+  HomePage(this.user) : assert(user != null);
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +18,6 @@ HomePage(this.user) : assert(user != null);
       drawer: CustomDrawer(user),
       appBar: AppBar(
         title: Text('Home Page'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () async {
-              await showDialog(
-                context: context,
-                builder: (context) => LogOutDialog(),
-                barrierDismissible: false,
-              );
-            },
-          ),
-        ],
       ),
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, postState) {
