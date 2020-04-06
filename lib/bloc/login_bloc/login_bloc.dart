@@ -6,8 +6,10 @@ import 'package:our_apps_template/data/model/user.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:our_apps_template/utils/exceptions.dart';
 import 'package:our_apps_template/utils/validators.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'login_event.dart';
+
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -17,6 +19,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   @override
   LoginState get initialState => LoginState.empty();
+
+  @override
+  Stream<LoginState> transformEvents(
+    Stream<LoginEvent> events,
+    Stream<LoginState> Function(LoginEvent event) next,
+  ) {
+    final nonDebounceStream = events.where((event) {
+      return (event is! IdChanged);
+    });
+
+    final debounceStream = events.where((event) {
+      return (event is IdChanged);
+    }).debounceTime(Duration(milliseconds: 300));
+
+    return super.transformEvents(
+      nonDebounceStream.mergeWith([debounceStream]),
+      next,
+    );
+  }
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
@@ -36,7 +57,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _mapLoginClickedToState(String id) async* {
     yield LoginState.loading();
     try {
-      final user =  await userRepository.login(id);
+      final user = await userRepository.login(id);
       yield LoginState.success(user);
     } on UserNotFoundException catch (e) {
       print('user in not found exception');

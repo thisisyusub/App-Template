@@ -52,39 +52,8 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
-//  Widget _buildPostLoadSuccessWidget(PostLoadSuccess postLoadSuccess) {
-//    final posts = postLoadSuccess.posts;
-//
-//    return Scrollbar(
-//      child: ListView.separated(
-//        itemBuilder: (context, index) => Container(
-//          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5),
-//          color: Colors.white,
-//          child: ListTile(
-//            contentPadding: const EdgeInsets.all(8.0),
-//            leading: CircleAvatar(
-//              child: Text(posts[index].userId.toString()),
-//            ),
-//            title: Text(posts[index].title),
-//            subtitle: Text(posts[index].body),
-//            trailing: IconButton(
-//              icon: Icon(Icons.favorite_border),
-//              onPressed: () {},
-//            ),
-//            isThreeLine: true,
-//          ),
-//        ),
-//        separatorBuilder: (context, index) => SizedBox(
-//          height: 5,
-//        ),
-//        itemCount: posts.length,
-//      ),
-//    );
-//  }
 }
 
-/// I have replaced builder method with Widget for [Performance gaining]
 class PostSuccessWidget extends StatelessWidget {
   final List<Post> posts;
 

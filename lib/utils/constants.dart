@@ -34,3 +34,18 @@ class LanguageKeys {
   static const String az = 'az';
   static const String en = 'en';
 }
+
+/// Constants for database
+class DatabaseKeys {
+  DatabaseKeys._();
+
+  /// [Post] table
+  static const String postTable = 'Post';
+  static const String postId = 'postId';
+  static const String userId = 'userId';
+  static const String title = 'title';
+  static const String body = 'body';
+
+  /// [Comment table]
+  static const String commentTable = 'Comment';
+}
