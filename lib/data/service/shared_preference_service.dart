@@ -1,4 +1,4 @@
-import 'package:our_apps_template/utils/constants.dart';
+import 'package:our_apps_template/utils/constants.dart' show SharedPrefKeys;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {

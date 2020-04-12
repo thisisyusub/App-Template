@@ -45,6 +45,7 @@ class CustomDrawer extends StatelessWidget {
           Divider(height: 0),
           ListTile(
             onTap: () async {
+              Navigator.of(context).pop();
               await showDialog(
                 context: context,
                 builder: (context) => LogOutDialog(),
