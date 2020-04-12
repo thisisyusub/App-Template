@@ -7,7 +7,6 @@ import 'package:our_apps_template/bloc/home_bloc//home_bloc.dart';
 import 'package:our_apps_template/data/data_provider/post_data_provider.dart';
 import 'package:our_apps_template/data/data_provider/user_data_provider.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
-import 'package:our_apps_template/data/service/database_service.dart';
 import 'package:our_apps_template/presentation/pages/home_page.dart';
 import 'package:our_apps_template/presentation/pages/login_page.dart';
 import 'package:our_apps_template/presentation/pages/splash_page.dart';

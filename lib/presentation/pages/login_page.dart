@@ -33,21 +33,21 @@ class _LoginPageState extends State<LoginPage> {
         title: new Text('Login Page'),
       ),
       body: new SafeArea(
-        child:new Center(
+        child: new Center(
           child: new SingleChildScrollView(
-            child:new Padding(
+            child: new Padding(
               padding: const EdgeInsets.all(16.0),
-              child:new BlocConsumer<LoginBloc, LoginState>(
+              child: new BlocConsumer<LoginBloc, LoginState>(
                 listener: (context, loginState) {
                   if (loginState.isFailure) {
                     print('Login Page: ${loginState.message}');
                     Scaffold.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(new SnackBar(
-                        content:new Row(
+                        content: new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                           new Text(loginState.message),
+                            new Text(loginState.message),
                             new Icon(Icons.error)
                           ],
                         ),
@@ -59,8 +59,8 @@ class _LoginPageState extends State<LoginPage> {
                     Scaffold.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
-                       new SnackBar(
-                          content:new Row(
+                        new SnackBar(
+                          content: new Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               new Text('Logging In...'),
@@ -86,9 +86,9 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         controller: _idController,
                         keyboardType: TextInputType.number,
-                        decoration:new InputDecoration(
-                          enabledBorder:new OutlineInputBorder(
-                            borderSide:  const  BorderSide(
+                        decoration: new InputDecoration(
+                          enabledBorder: new OutlineInputBorder(
+                            borderSide: const BorderSide(
                               color: Colors.white,
                               width: 1,
                             ),
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                               width: 1,
                             ),
                           ),
-                          focusedBorder:new OutlineInputBorder(
+                          focusedBorder: new OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Colors.white,
                               width: 1,
@@ -113,11 +113,10 @@ class _LoginPageState extends State<LoginPage> {
                         maxLength: 2,
                       ),
                       new CustomButton(
-                        'Login',
-                        _isLoginButtonEnabled(state)
-                            ? _onLoginButtonClicked
-                            : null
-                      ),
+                          'Login',
+                          _isLoginButtonEnabled(state)
+                              ? _onLoginButtonClicked
+                              : null),
                       new SizedBox(
                         height: 20,
                       ),
@@ -147,5 +146,11 @@ class _LoginPageState extends State<LoginPage> {
   void _onLoginButtonClicked() {
     BlocProvider.of<LoginBloc>(context)
         .add(new LoginClicked(id: _idController.text));
+  }
+
+  @override
+  void dispose() {
+    _idController.dispose();
+    super.dispose();
   }
 }

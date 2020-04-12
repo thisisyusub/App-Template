@@ -138,4 +138,10 @@ class _RegisterPageState extends State<RegisterPage> {
     BlocProvider.of<RegisterBloc>(context)
         .add(RegisterClicked(id: _idController.text));
   }
+
+  @override
+  void dispose() {
+    _idController.dispose();
+    super.dispose();
+  }
 }
