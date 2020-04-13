@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             Locale('az', 'AZ'),
           ],
           debugShowCheckedModeBanner: false,
-          themeMode: (themeState as ThemeLoad).themeMode,
+          themeMode: themeState.themeMode,
           theme: new ThemeData(
             brightness: Brightness.light,
             primaryColor: AppColors.mainColor,

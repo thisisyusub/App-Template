@@ -9,7 +9,7 @@ part 'theme_event.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   @override
-  ThemeState get initialState => ThemeLoad(ThemeMode.light);
+  ThemeState get initialState => ThemeState(ThemeMode.light);
 
   @override
   Stream<ThemeState> mapEventToState(ThemeEvent event) async* {
@@ -26,11 +26,11 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
     if (isDarkModeEnabled == null) {
       sharedPrefService.setDarkModeInfo(false);
-      yield ThemeLoad(ThemeMode.light);
+      yield ThemeState(ThemeMode.light);
     } else {
       ThemeMode themeMode =
           isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light;
-      yield ThemeLoad(themeMode);
+      yield ThemeState(themeMode);
     }
   }
 
@@ -40,10 +40,10 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
     if (!value) {
       await sharedPrefService.setDarkModeInfo(false);
-      yield ThemeLoad(ThemeMode.light);
+      yield ThemeState(ThemeMode.light);
     } else if (value) {
       await sharedPrefService.setDarkModeInfo(true);
-      yield ThemeLoad(ThemeMode.dark);
+      yield ThemeState(ThemeMode.dark);
     }
   }
 }

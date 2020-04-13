@@ -27,9 +27,7 @@ class CustomDrawer extends StatelessWidget {
           BlocBuilder<ThemeBloc, ThemeState>(
             builder: (context, themeState) {
               return SwitchListTile(
-                value: (themeState as ThemeLoad).themeMode == ThemeMode.light
-                    ? false
-                    : true,
+                value: themeState.themeMode == ThemeMode.light ? false : true,
                 onChanged: (value) =>
                     context.bloc<ThemeBloc>().add(ThemeChanged(value)),
                 title: Text('Enable dark mode'),
