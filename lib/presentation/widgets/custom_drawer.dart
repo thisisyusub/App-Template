@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:our_apps_template/bloc/theme_bloc/theme_bloc.dart';
 import 'package:our_apps_template/data/model/user.dart';
 import 'package:our_apps_template/presentation/dialogs/log_out_dialog.dart';
+import 'package:our_apps_template/utils/enums.dart';
 
 class CustomDrawer extends StatelessWidget {
   final User userData;
@@ -21,10 +24,17 @@ class CustomDrawer extends StatelessWidget {
             ),
             arrowColor: Colors.red,
           ),
-          SwitchListTile(
-            value: false,
-            onChanged: (_) {},
-            title: Text('Enable dark mode'),
+          BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, themeState) {
+              return SwitchListTile(
+                value: (themeState as ThemeLoad).themeMode == ThemeMode.light
+                    ? false
+                    : true,
+                onChanged: (value) =>
+                    context.bloc<ThemeBloc>().add(ThemeChanged(value)),
+                title: Text('Enable dark mode'),
+              );
+            },
           ),
           Divider(
             height: 0,

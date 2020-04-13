@@ -34,7 +34,7 @@ class SharedPreferencesService {
 
   bool get isUserLogged => _preferences.getBool(SharedPrefKeys.loggedIn);
 
-  Future<void> setDarkModeInfo([bool isDarkModeEnabled = false]) async =>
+  Future<void> setDarkModeInfo(bool isDarkModeEnabled) async =>
       await _preferences.setBool(
           SharedPrefKeys.darkModeEnabled, isDarkModeEnabled);
 
