@@ -7,13 +7,10 @@ abstract class LanguageEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AppStarted extends LanguageEvent {
-  @override
-  String toString() => 'Language: AppStarted';
-}
+class LanguageLoadStarted extends LanguageEvent {}
 
 class LanguageSelected extends LanguageEvent {
-  final String languageCode;
+  final Language languageCode;
 
   LanguageSelected(this.languageCode) : assert(languageCode != null);
 

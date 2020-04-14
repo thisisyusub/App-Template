@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:our_apps_template/bloc/language_bloc/language_bloc.dart';
 import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
 import 'package:our_apps_template/bloc/home_bloc//home_bloc.dart';
 import 'package:our_apps_template/bloc/theme_bloc/theme_bloc.dart';
@@ -31,11 +32,14 @@ void main() async {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => AuthenticationBloc(userRepository: userRepository)
-              ..add(AppStarted()),
+            create: (_) => ThemeBloc()..add(ThemeLoadStarted()),
           ),
           BlocProvider(
-            create: (_) => ThemeBloc()..add(ThemeLoadStarted()),
+            create: (_) => LanguageBloc()..add(LanguageLoadStarted()),
+          ),
+          BlocProvider(
+            create: (_) => AuthenticationBloc(userRepository: userRepository)
+              ..add(AppStarted()),
           ),
         ],
         child: MyApp(),
@@ -60,78 +64,84 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, themeState) {
-        return new MaterialApp(
-          localizationsDelegates: [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            AppLocalizations.delegate,
-          ],
-          supportedLocales: [
-            Locale('en', 'US'),
-            Locale('az', 'AZ'),
-          ],
-          debugShowCheckedModeBanner: false,
-          themeMode: themeState.themeMode,
-          theme: new ThemeData(
-            brightness: Brightness.light,
-            primaryColor: AppColors.mainColor,
-            primaryColorDark: AppColors.secondaryColor,
-            accentColor: AppColors.accentColor,
-            scaffoldBackgroundColor: AppColors.mainColor,
-            buttonTheme: new ButtonThemeData(
-              buttonColor: Colors.white,
-              height: 50,
-              minWidth: double.infinity,
-            ),
-          ),
-          darkTheme: new ThemeData(
-            brightness: Brightness.dark,
-            primaryColor: AppColors.mainDarkModeColor,
-            primaryColorDark: AppColors.secondaryDarkModeColor,
-            accentColor: AppColors.accentDarkModeColor,
-            primaryColorBrightness: Brightness.dark,
-            accentColorBrightness: Brightness.dark,
-            buttonTheme: new ButtonThemeData(
-              buttonColor: Colors.red,
-              height: 50,
-              minWidth: double.infinity,
-            ),
-          ),
-          home: new BlocBuilder<AuthenticationBloc, AuthenticationState>(
-            builder: (context, authState) {
-              if (authState is Uninitialized) {
-                return new SplashPage();
-              } else if (authState is Unauthenticated) {
-                return new BlocProvider(
-                  create: (_) => new LoginBloc(
-                    userRepository:
-                        RepositoryProvider.of<UserRepository>(context),
-                  ),
-                  child: new LoginPage(),
-                );
-              } else if (authState is Authenticated) {
-                return new RepositoryProvider(
-                  create: (_) => PostRepository(
-                    postDataProvider: PostDataProvider(),
-                  ),
-                  child: Builder(
-                    builder: (context) {
-                      return new BlocProvider<HomeBloc>(
-                        create: (_) => HomeBloc(
-                          postRepository:
-                              RepositoryProvider.of<PostRepository>(context),
-                        )..add(FetchPostsRequested()),
-                        child: HomePage(authState.user),
-                      );
-                    },
-                  ),
-                );
-              }
+        return BlocBuilder<LanguageBloc, LanguageState>(
+          builder: (context, languageState) {
+            return new MaterialApp(
+              locale: languageState.locale,
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                AppLocalizations.delegate,
+              ],
+              supportedLocales: [
+                Locale('en', 'US'),
+                Locale('az', 'AZ'),
+              ],
+              debugShowCheckedModeBanner: false,
+              themeMode: themeState.themeMode,
+              theme: new ThemeData(
+                brightness: Brightness.light,
+                primaryColor: AppColors.mainColor,
+                primaryColorDark: AppColors.secondaryColor,
+                accentColor: AppColors.accentColor,
+                scaffoldBackgroundColor: AppColors.mainColor,
+                buttonTheme: new ButtonThemeData(
+                  buttonColor: Colors.white,
+                  height: 50,
+                  minWidth: double.infinity,
+                ),
+              ),
+              darkTheme: new ThemeData(
+                brightness: Brightness.dark,
+                primaryColor: AppColors.mainColor,
+                primaryColorDark: AppColors.secondaryColor,
+                accentColor: AppColors.accentColor,
+                primaryColorBrightness: Brightness.dark,
+                accentColorBrightness: Brightness.dark,
+                buttonTheme: new ButtonThemeData(
+                  buttonColor: Colors.red,
+                  height: 50,
+                  minWidth: double.infinity,
+                ),
+              ),
+              home: new BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                builder: (context, authState) {
+                  if (authState is Uninitialized) {
+                    return new SplashPage();
+                  } else if (authState is Unauthenticated) {
+                    return new BlocProvider(
+                      create: (_) => new LoginBloc(
+                        userRepository:
+                            RepositoryProvider.of<UserRepository>(context),
+                      ),
+                      child: new LoginPage(),
+                    );
+                  } else if (authState is Authenticated) {
+                    return new RepositoryProvider(
+                      create: (_) => PostRepository(
+                        postDataProvider: PostDataProvider(),
+                      ),
+                      child: Builder(
+                        builder: (context) {
+                          return new BlocProvider<HomeBloc>(
+                            create: (_) => HomeBloc(
+                              postRepository:
+                                  RepositoryProvider.of<PostRepository>(
+                                      context),
+                            )..add(FetchPostsRequested()),
+                            child: HomePage(authState.user),
+                          );
+                        },
+                      ),
+                    );
+                  }
 
-              return new Container();
-            },
-          ),
-          onGenerateRoute: Router.onGenerateRoute,
+                  return new Container();
+                },
+              ),
+              onGenerateRoute: Router.onGenerateRoute,
+            );
+          },
         );
       },
     );

@@ -34,6 +34,13 @@ class LanguageKeys {
 
   static const String az = 'az';
   static const String en = 'en';
+  static const String enterUserId = 'enter_user_id';
+  static const String login = 'login';
+  static const String orRegister = 'or_register';
+  static const String loginPage = 'login_page';
+  static const String selectLanguage = 'select_language';
+  static const String cancel = 'cancel';
+  static const String homePage = 'home_page';
 }
 
 /// Constants for database

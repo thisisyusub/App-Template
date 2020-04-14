@@ -1,5 +1,9 @@
 {
+  "login_page": "Login səhifəsi",
   "enter_user_id": "istifadəçi id-si",
   "login": "daxil ol",
-  "or_register": "Və yaxud qeydiyyatdan keç"
+  "or_register": "Və yaxud qeydiyyatdan keç",
+  "select_language": "Dili seçin",
+  "cancel": "Ləğv et",
+  "home_page": "Ana Səhifə"
 }

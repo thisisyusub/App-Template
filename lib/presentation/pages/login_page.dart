@@ -4,7 +4,8 @@ import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.d
 import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
 import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
 import 'package:our_apps_template/presentation/widgets/custom_button.dart';
-import 'package:our_apps_template/utils/constants.dart' show Routes;
+import 'package:our_apps_template/utils/app_localizations.dart';
+import 'package:our_apps_template/utils/constants.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -30,7 +31,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Login Page'),
+        title: new Text(
+            AppLocalizations.of(context).translate(LanguageKeys.loginPage)),
       ),
       body: new SafeArea(
         child: new Center(
@@ -40,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
               child: new BlocConsumer<LoginBloc, LoginState>(
                 listener: (context, loginState) {
                   if (loginState.isFailure) {
-                    print('Login Page: ${loginState.message}');
                     Scaffold.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(new SnackBar(
@@ -105,7 +106,8 @@ class _LoginPageState extends State<LoginPage> {
                               width: 1,
                             ),
                           ),
-                          hintText: 'Enter user id',
+                          hintText: AppLocalizations.of(context)
+                              .translate(LanguageKeys.enterUserId),
                           hintStyle: AppTextStyles.mediumTextStyle,
                           counterStyle: AppTextStyles.mediumTextStyle,
                         ),
@@ -113,7 +115,8 @@ class _LoginPageState extends State<LoginPage> {
                         maxLength: 2,
                       ),
                       new CustomButton(
-                          'Login',
+                          AppLocalizations.of(context)
+                              .translate(LanguageKeys.login),
                           _isLoginButtonEnabled(state)
                               ? _onLoginButtonClicked
                               : null),
@@ -122,7 +125,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       new FlatButton(
                         child: new Text(
-                          'Or register',
+                          AppLocalizations.of(context)
+                              .translate(LanguageKeys.orRegister),
                           style: AppTextStyles.mediumTextStyle,
                         ),
                         onPressed: () {

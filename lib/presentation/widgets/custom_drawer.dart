@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_apps_template/bloc/theme_bloc/theme_bloc.dart';
 import 'package:our_apps_template/data/model/user.dart';
+import 'package:our_apps_template/presentation/dialogs/language_dialog.dart';
 import 'package:our_apps_template/presentation/dialogs/log_out_dialog.dart';
-import 'package:our_apps_template/utils/enums.dart';
 
 class CustomDrawer extends StatelessWidget {
   final User userData;
@@ -38,7 +38,14 @@ class CustomDrawer extends StatelessWidget {
             height: 0,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () async {
+              Navigator.of(context).pop();
+              await showDialog(
+                context: context,
+                builder: (_) => LanguageDialog(),
+                barrierDismissible: true,
+              );
+            },
             title: Text('Change language'),
             trailing: Icon(Icons.language),
           ),
