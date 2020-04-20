@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:our_apps_template/contractors/impl_user_repository.dart';
 import 'package:our_apps_template/data/model/user.dart';
-import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:our_apps_template/data/service/shared_preference_service.dart';
 
@@ -15,7 +15,7 @@ class AuthenticationBloc
   AuthenticationBloc({@required this.userRepository})
       : assert(userRepository != null);
 
-  final UserRepository userRepository;
+  final ImplUserRepository userRepository;
 
   @override
   AuthenticationState get initialState => Uninitialized();

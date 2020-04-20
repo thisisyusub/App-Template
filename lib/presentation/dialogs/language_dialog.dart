@@ -2,16 +2,15 @@ import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_apps_template/bloc/language_bloc/language_bloc.dart';
-import 'package:our_apps_template/utils/app_localizations.dart';
 import 'package:our_apps_template/utils/constants.dart';
 import 'package:our_apps_template/utils/enums.dart';
+import '../../utils/translation_extension.dart';
 
 class LanguageDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
-          AppLocalizations.of(context).translate(LanguageKeys.selectLanguage)),
+      title: Text(LanguageKeys.selectLanguage).translate(context),
       content: Row(
         children: <Widget>[
           Expanded(
@@ -36,8 +35,7 @@ class LanguageDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         FlatButton(
-          child:
-              Text(AppLocalizations.of(context).translate(LanguageKeys.cancel)),
+          child: Text(LanguageKeys.cancel).translate(context),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ],

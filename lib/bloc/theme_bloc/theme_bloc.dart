@@ -38,12 +38,12 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     final sharedPrefService = await SharedPreferencesService.instance;
     final isDarkModeEnabled = sharedPrefService.isDarkModeEnabled;
 
-    if (!value) {
-      await sharedPrefService.setDarkModeInfo(false);
-      yield ThemeState(ThemeMode.light);
-    } else if (value) {
+    if (value && !isDarkModeEnabled) {
       await sharedPrefService.setDarkModeInfo(true);
       yield ThemeState(ThemeMode.dark);
+    } else if (!value && isDarkModeEnabled) {
+      await sharedPrefService.setDarkModeInfo(false);
+      yield ThemeState(ThemeMode.light);
     }
   }
 }

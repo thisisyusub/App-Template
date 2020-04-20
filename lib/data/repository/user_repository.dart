@@ -1,15 +1,17 @@
+import 'package:our_apps_template/contractors/impl_user_repository.dart';
 import 'package:our_apps_template/data/data_provider/user_data_provider.dart';
 import 'package:meta/meta.dart';
 import 'package:our_apps_template/data/model/user.dart';
 import 'package:our_apps_template/data/service/shared_preference_service.dart';
 import 'package:our_apps_template/utils/constants.dart';
 
-class UserRepository {
+class UserRepository implements ImplUserRepository {
   UserRepository({@required this.userDataProvider})
       : assert(userDataProvider != null);
 
   final UserDataProvider userDataProvider;
 
+  @override
   Future<User> login(String userId) async {
     final userData = await userDataProvider.loginAndGetUserData(userId);
 
@@ -26,6 +28,7 @@ class UserRepository {
     return userData;
   }
 
+  @override
   Future<User> register(String userId) async {
     final userData = await userDataProvider.registerAndGetUserData(userId);
 

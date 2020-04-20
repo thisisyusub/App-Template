@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:our_apps_template/contractors/impl_post_repository.dart';
 import 'package:our_apps_template/data/model/post.dart';
 import 'package:equatable/equatable.dart';
-import 'package:our_apps_template/data/repository/post_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'home_event.dart';
@@ -13,7 +13,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({@required this.postRepository});
 
-  final PostRepository postRepository;
+  final ImplPostRepository postRepository;
 
   @override
   HomeState get initialState => PostLoadUninitialized();

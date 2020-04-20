@@ -1,3 +1,4 @@
+import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,7 +18,9 @@ import 'package:our_apps_template/presentation/shared/app_colors.dart';
 import 'package:our_apps_template/utils/app_localizations.dart';
 import 'package:our_apps_template/utils/simple_bloc_delegate.dart';
 
+import 'bloc/language_bloc/language_bloc.dart';
 import 'data/repository/post_repository.dart';
+import 'presentation/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
+import 'package:our_apps_template/contractors/impl_user_repository.dart';
 import 'package:our_apps_template/data/model/user.dart';
-import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:our_apps_template/utils/exceptions.dart';
 import 'package:our_apps_template/utils/validators.dart';
 import 'package:rxdart/rxdart.dart';
@@ -15,7 +15,7 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({@required this.userRepository}) : assert(userRepository != null);
 
-  final UserRepository userRepository;
+  final ImplUserRepository userRepository;
 
   @override
   LoginState get initialState => LoginState.empty();
