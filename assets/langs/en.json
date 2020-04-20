@@ -1,4 +1,5 @@
 {
+  "template_app": "Template App",
   "login_page": "Login Page",
   "enter_user_id": "Enter user id",
   "login": "login",
@@ -7,5 +8,10 @@
   "cancel": "Cancel",
   "home_page": "Home Page",
   "azerbaijani": "Azerbaijani",
-  "english": "English"
+  "english": "English",
+  "russian": "Russian",
+  "enable_dark_mode": "Enable dark mode",
+  "change_language": "Change language",
+  "about": "About",
+  "log_out": "Log out"
 }

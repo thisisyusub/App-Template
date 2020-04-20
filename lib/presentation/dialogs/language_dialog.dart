@@ -31,6 +31,15 @@ class LanguageDialog extends StatelessWidget {
               },
             ),
           ),
+          Expanded(
+            child: GestureDetector(
+              child: Flags.getMiniFlag('RU', 50, 0),
+              onTap: () {
+                BlocProvider.of<LanguageBloc>(context)
+                    .add(LanguageSelected(Language.RU));
+              },
+            ),
+          ),
         ],
       ),
       actions: <Widget>[

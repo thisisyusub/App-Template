@@ -4,6 +4,8 @@ import 'package:our_apps_template/bloc/theme_bloc/theme_bloc.dart';
 import 'package:our_apps_template/data/model/user.dart';
 import 'package:our_apps_template/presentation/dialogs/language_dialog.dart';
 import 'package:our_apps_template/presentation/dialogs/log_out_dialog.dart';
+import 'package:our_apps_template/utils/constants.dart';
+import '../../utils/translation_extension.dart';
 
 class CustomDrawer extends StatelessWidget {
   final User userData;
@@ -30,7 +32,7 @@ class CustomDrawer extends StatelessWidget {
                 value: themeState.themeMode == ThemeMode.light ? false : true,
                 onChanged: (value) =>
                     context.bloc<ThemeBloc>().add(ThemeChanged(value)),
-                title: Text('Enable dark mode'),
+                title: Text(LanguageKeys.enableDarkMode).translate(context),
               );
             },
           ),
@@ -46,7 +48,7 @@ class CustomDrawer extends StatelessWidget {
                 barrierDismissible: true,
               );
             },
-            title: Text('Change language'),
+            title: Text(LanguageKeys.changeLanguage).translate(context),
             trailing: Icon(Icons.language),
           ),
           Divider(
@@ -54,7 +56,7 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {},
-            title: Text('About'),
+            title: Text(LanguageKeys.about).translate(context),
             trailing: Icon(Icons.info_outline),
           ),
           Divider(height: 0),
@@ -67,7 +69,7 @@ class CustomDrawer extends StatelessWidget {
                 barrierDismissible: false,
               );
             },
-            title: Text('Log out'),
+            title: Text(LanguageKeys.logOut).translate(context),
             trailing: Icon(Icons.exit_to_app),
           ),
           Divider(height: 0),

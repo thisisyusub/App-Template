@@ -1,2 +1,2 @@
 /// language enums
-enum Language { EN, AZ }
+enum Language { EN, AZ, RU }

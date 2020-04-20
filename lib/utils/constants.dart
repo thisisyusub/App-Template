@@ -1,6 +1,7 @@
 /// Constants for SharedPreferences
 class SharedPrefKeys {
   SharedPrefKeys._();
+
   static const String token = 'token';
   static const String id = 'id';
   static const String loggedIn = 'loggedIn';
@@ -34,12 +35,18 @@ class LanguageKeys {
 
   static const String az = 'az';
   static const String en = 'en';
+  static const String ru = 'ru';
+  static const String templateApp = 'template_app';
   static const String enterUserId = 'enter_user_id';
   static const String login = 'login';
   static const String orRegister = 'or_register';
   static const String loginPage = 'login_page';
   static const String selectLanguage = 'select_language';
   static const String cancel = 'cancel';
+  static const String enableDarkMode = 'enable_dark_mode';
+  static const String changeLanguage = 'change_language';
+  static const String about = 'about';
+  static const String logOut = 'log_out';
   static const String homePage = 'home_page';
 }
 

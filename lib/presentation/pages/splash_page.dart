@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
+import 'package:our_apps_template/utils/constants.dart';
+import '../../utils/translation_extension.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -17,9 +19,9 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Center(
         child: Text(
-          'Template App',
+          LanguageKeys.templateApp,
           style: AppTextStyles.largeTextStyle,
-        ),
+        ).translate(context),
       ),
     );
   }

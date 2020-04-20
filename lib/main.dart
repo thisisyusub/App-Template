@@ -1,4 +1,3 @@
-import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,6 +9,7 @@ import 'package:our_apps_template/bloc/theme_bloc/theme_bloc.dart';
 import 'package:our_apps_template/data/data_provider/post_data_provider.dart';
 import 'package:our_apps_template/data/data_provider/user_data_provider.dart';
 import 'package:our_apps_template/data/repository/user_repository.dart';
+import 'package:our_apps_template/data/service/shared_preference_service.dart';
 import 'package:our_apps_template/presentation/pages/home_page.dart';
 import 'package:our_apps_template/presentation/pages/login_page.dart';
 import 'package:our_apps_template/presentation/pages/splash_page.dart';
@@ -24,8 +24,32 @@ import 'presentation/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  BlocSupervisor.delegate = new SimpleBlocDelegate();
+  BlocSupervisor.delegate = SimpleBlocDelegate();
 
+  // shared pref service
+  final sharedPrefService = await SharedPreferencesService.instance;
+
+  // app default language
+  String defaultLanguageCode = sharedPrefService.languageCode;
+  Locale locale;
+  if (defaultLanguageCode == null) {
+    locale = new Locale('en', 'US');
+    await sharedPrefService.setLanguage(locale.languageCode);
+  } else {
+    locale = new Locale(defaultLanguageCode);
+  }
+
+  // app default theme
+  ThemeMode themeMode;
+  final bool isDarkModeEnabled = sharedPrefService.isDarkModeEnabled;
+  if (isDarkModeEnabled == null) {
+    sharedPrefService.setDarkModeInfo(false);
+    themeMode = ThemeMode.light;
+  } else {
+    themeMode = isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light;
+  }
+
+  // user data provider and repository
   final userDataProvider = new UserDataProvider();
   final userRepository = new UserRepository(userDataProvider: userDataProvider);
 
@@ -35,10 +59,10 @@ void main() async {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => ThemeBloc()..add(ThemeLoadStarted()),
+            create: (_) => ThemeBloc(themeMode),
           ),
           BlocProvider(
-            create: (_) => LanguageBloc()..add(LanguageLoadStarted()),
+            create: (_) => LanguageBloc(locale),
           ),
           BlocProvider(
             create: (_) => AuthenticationBloc(userRepository: userRepository)
@@ -79,6 +103,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               supportedLocales: [
                 Locale('en', 'US'),
                 Locale('az', 'AZ'),
+                Locale('ru', 'RU'),
               ],
               debugShowCheckedModeBanner: false,
               themeMode: themeState.themeMode,

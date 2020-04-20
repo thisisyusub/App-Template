@@ -8,31 +8,33 @@ part 'theme_state.dart';
 part 'theme_event.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
+  ThemeBloc(this.defaultThemeMode) : assert(defaultThemeMode != null);
+
+  final ThemeMode defaultThemeMode;
+
   @override
-  ThemeState get initialState => ThemeState(ThemeMode.light);
+  ThemeState get initialState => ThemeState(defaultThemeMode);
 
   @override
   Stream<ThemeState> mapEventToState(ThemeEvent event) async* {
-    if (event is ThemeLoadStarted) {
-      yield* _mapThemeLoadStartedToState();
-    } else if (event is ThemeChanged) {
+    if (event is ThemeChanged) {
       yield* _mapThemeChangedToState(event.value);
     }
   }
 
-  Stream<ThemeState> _mapThemeLoadStartedToState() async* {
-    final sharedPrefService = await SharedPreferencesService.instance;
-    final isDarkModeEnabled = sharedPrefService.isDarkModeEnabled;
-
-    if (isDarkModeEnabled == null) {
-      sharedPrefService.setDarkModeInfo(false);
-      yield ThemeState(ThemeMode.light);
-    } else {
-      ThemeMode themeMode =
-          isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light;
-      yield ThemeState(themeMode);
-    }
-  }
+//  Stream<ThemeState> _mapThemeLoadStartedToState() async* {
+//    final sharedPrefService = await SharedPreferencesService.instance;
+//    final isDarkModeEnabled = sharedPrefService.isDarkModeEnabled;
+//
+//    if (isDarkModeEnabled == null) {
+//      sharedPrefService.setDarkModeInfo(false);
+//      yield ThemeState(ThemeMode.light);
+//    } else {
+//      ThemeMode themeMode =
+//          isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light;
+//      yield ThemeState(themeMode);
+//    }
+//  }
 
   Stream<ThemeState> _mapThemeChangedToState(bool value) async* {
     final sharedPrefService = await SharedPreferencesService.instance;
