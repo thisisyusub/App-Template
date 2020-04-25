@@ -7,19 +7,17 @@ I will explain each part a bit deeply in the previous sections. Sections are fol
 - `bloc`
 - `data`
 - `contractors`
-- `data`
-  - model
-  - service
-  - repository
 - `presentation`
 - `utils`
-  - widgets
-  - pages
-  - dialogs
-  - shared
-  - router
-
 
 > Template project uses JsonPlaceHolder api.
 
 # bloc
+
+# data
+
+# contractors
+
+# presentation
+
+# utils
