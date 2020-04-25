@@ -12,6 +12,8 @@ I will explain each part a bit deeply in the previous sections. Sections are fol
 
 > Template project uses JsonPlaceHolder api.
 
+---
+
 # bloc
 
 # data
