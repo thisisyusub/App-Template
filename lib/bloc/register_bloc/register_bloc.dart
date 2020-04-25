@@ -3,8 +3,8 @@ import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:our_apps_template/contractors/impl_user_repository.dart';
 import 'package:our_apps_template/data/model/user.dart';
-import 'package:our_apps_template/utils/exceptions.dart';
-import 'package:our_apps_template/utils/validators.dart';
+import 'package:our_apps_template/utils/exceptions/exceptions.dart';
+import 'package:our_apps_template/utils/validators/validators.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'register_event.dart';
@@ -15,7 +15,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterBloc({@required this.userRepository})
       : assert(userRepository != null);
 
-  final ImplUserRepository userRepository;
+  final IUserRepository userRepository;
 
   @override
   RegisterState get initialState => RegisterState.empty();

@@ -15,7 +15,7 @@ class AuthenticationBloc
   AuthenticationBloc({@required this.userRepository})
       : assert(userRepository != null);
 
-  final ImplUserRepository userRepository;
+  final IUserRepository userRepository;
 
   @override
   AuthenticationState get initialState => Uninitialized();
@@ -25,7 +25,6 @@ class AuthenticationBloc
     AuthenticationEvent event,
   ) async* {
     if (event is AppStarted) {
-      await Future.delayed(Duration(seconds: 2));
       final userLogged = (await SharedPreferencesService.instance).isUserLogged;
       if (userLogged != null) {
         if (userLogged) {
@@ -42,6 +41,7 @@ class AuthenticationBloc
         yield Unauthenticated();
       }
     } else if (event is LoggedIn) {
+      (await SharedPreferencesService.instance).setUserLogInfo(true);
       yield Authenticated(event.user);
     } else if (event is LoggedOut) {
       (await SharedPreferencesService.instance).setUserLogInfo(false);

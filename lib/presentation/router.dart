@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_apps_template/bloc/register_bloc/register_bloc.dart';
-import 'package:our_apps_template/data/repository/user_repository.dart';
+import 'package:our_apps_template/contractors/impl_user_repository.dart';
 import 'package:our_apps_template/presentation/pages/register_page.dart';
-import 'package:our_apps_template/utils/constants.dart';
+import 'package:our_apps_template/utils/constants/constants.dart';
 
 class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {
@@ -13,7 +13,7 @@ class Router {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => RegisterBloc(
-              userRepository: RepositoryProvider.of<UserRepository>(context),
+              userRepository: RepositoryProvider.of<IUserRepository>(context),
             ),
             child: RegisterPage(),
           ),

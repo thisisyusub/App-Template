@@ -8,8 +8,8 @@ import 'package:our_apps_template/data/model/post.dart';
 import 'package:our_apps_template/data/model/user.dart';
 import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
 import 'package:our_apps_template/presentation/widgets/custom_drawer.dart';
-import 'package:our_apps_template/utils/constants.dart';
-import '../../utils/translation_extension.dart';
+import 'package:our_apps_template/utils/constants/constants.dart';
+import '../../utils/extensions/translation_extension.dart';
 
 class HomePage extends StatelessWidget {
   final User user;

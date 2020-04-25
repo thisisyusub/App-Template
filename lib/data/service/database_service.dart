@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:our_apps_template/data/model/post.dart';
-import 'package:our_apps_template/utils/constants.dart' show DatabaseKeys;
+import 'package:our_apps_template/utils/constants/constants.dart'
+    show DatabaseKeys;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 

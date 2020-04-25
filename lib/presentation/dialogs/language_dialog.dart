@@ -2,9 +2,9 @@ import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_apps_template/bloc/language_bloc/language_bloc.dart';
-import 'package:our_apps_template/utils/constants.dart';
-import 'package:our_apps_template/utils/enums.dart';
-import '../../utils/translation_extension.dart';
+import 'package:our_apps_template/utils/constants/constants.dart';
+import 'package:our_apps_template/utils/constants/enums.dart';
+import '../../utils/extensions/translation_extension.dart';
 
 class LanguageDialog extends StatelessWidget {
   @override

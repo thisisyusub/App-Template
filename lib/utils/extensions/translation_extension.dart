@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:our_apps_template/utils/app_localizations.dart';
+import 'package:our_apps_template/utils/localization/app_localizations.dart';
 
 extension Translator on Text {
   Text translate(BuildContext context) {

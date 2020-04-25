@@ -1,4 +1,5 @@
-import 'package:our_apps_template/utils/constants.dart' show DatabaseKeys;
+import 'package:our_apps_template/utils/constants/constants.dart'
+    show DatabaseKeys;
 
 class Post {
   int userId;

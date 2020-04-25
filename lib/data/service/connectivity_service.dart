@@ -3,7 +3,7 @@ import 'package:connectivity/connectivity.dart';
 class ConnectivityService {
   ConnectivityService._internal();
 
-  Future<bool> isConnected() async {
+  static Future<bool> isConnected() async {
     var connectivity = await (Connectivity().checkConnectivity());
     if (connectivity == ConnectivityResult.mobile ||
         connectivity == ConnectivityResult.wifi) {

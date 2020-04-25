@@ -1,15 +1,13 @@
-import 'dart:async';
-
+import 'package:our_apps_template/contractors/impl_post_repository.dart';
 import 'package:our_apps_template/data/model/post.dart';
 import 'package:our_apps_template/data/service/api_service.dart';
 import 'package:our_apps_template/utils/exceptions/exceptions.dart';
 
-class PostDataProvider {
+class OnlinePostRepository extends IPostRepository {
   final _apiService = ApiService();
 
-  /// Method is used to get posts
-  /// all posts are shown in home screen
-  Future<List<Post>> getAllPost() async {
+  @override
+  Future<List<Post>> getAllPosts() async {
     String endPoint = '/posts';
     final result = await _apiService.dio.get(endPoint);
 

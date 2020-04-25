@@ -13,7 +13,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({@required this.postRepository});
 
-  final ImplPostRepository postRepository;
+  final IPostRepository postRepository;
 
   @override
   HomeState get initialState => PostLoadUninitialized();

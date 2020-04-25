@@ -41,16 +41,16 @@ class Address {
   String street;
   String suite;
   String city;
-  String zipcode;
+  String zipCode;
   Geo geo;
 
-  Address({this.street, this.suite, this.city, this.zipcode, this.geo});
+  Address({this.street, this.suite, this.city, this.zipCode, this.geo});
 
   Address.fromJson(Map<String, dynamic> json) {
     street = json['street'];
     suite = json['suite'];
     city = json['city'];
-    zipcode = json['zipcode'];
+    zipCode = json['zipcode'];
     geo = json['geo'] != null ? new Geo.fromJson(json['geo']) : null;
   }
 }

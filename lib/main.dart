@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -6,26 +7,26 @@ import 'package:our_apps_template/bloc/language_bloc/language_bloc.dart';
 import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
 import 'package:our_apps_template/bloc/home_bloc//home_bloc.dart';
 import 'package:our_apps_template/bloc/theme_bloc/theme_bloc.dart';
-import 'package:our_apps_template/data/data_provider/post_data_provider.dart';
-import 'package:our_apps_template/data/data_provider/user_data_provider.dart';
-import 'package:our_apps_template/data/repository/user_repository.dart';
 import 'package:our_apps_template/data/service/shared_preference_service.dart';
 import 'package:our_apps_template/presentation/pages/home_page.dart';
 import 'package:our_apps_template/presentation/pages/login_page.dart';
 import 'package:our_apps_template/presentation/pages/splash_page.dart';
 import 'package:our_apps_template/presentation/router.dart';
 import 'package:our_apps_template/presentation/shared/app_colors.dart';
-import 'package:our_apps_template/utils/app_localizations.dart';
+import 'package:our_apps_template/utils/connectivity_facade.dart';
+import 'package:our_apps_template/utils/localization/app_localizations.dart';
 import 'package:our_apps_template/utils/simple_bloc_delegate.dart';
 
 import 'bloc/language_bloc/language_bloc.dart';
-import 'data/repository/post_repository.dart';
+import 'contractors/impl_post_repository.dart';
+import 'contractors/impl_user_repository.dart';
 import 'presentation/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = SimpleBlocDelegate();
 
+  // TODO: make good logic for language and theme config
   // shared pref service
   final sharedPrefService = await SharedPreferencesService.instance;
 
@@ -44,18 +45,24 @@ void main() async {
   final bool isDarkModeEnabled = sharedPrefService.isDarkModeEnabled;
   if (isDarkModeEnabled == null) {
     sharedPrefService.setDarkModeInfo(false);
-    themeMode = ThemeMode.light;
+    themeMode = ThemeMode.system;
   } else {
     themeMode = isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light;
   }
 
-  // user data provider and repository
-  final userDataProvider = new UserDataProvider();
-  final userRepository = new UserRepository(userDataProvider: userDataProvider);
+  final userRepository = await ConnectivityFacade.startUserRepository();
+  final postRepository = await ConnectivityFacade.startPostRepository();
 
   runApp(
-    new RepositoryProvider(
-      create: (_) => userRepository,
+    new MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<IUserRepository>(
+          create: (_) => userRepository,
+        ),
+        RepositoryProvider<IPostRepository>(
+          create: (_) => postRepository,
+        ),
+      ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -69,7 +76,10 @@ void main() async {
               ..add(AppStarted()),
           ),
         ],
-        child: MyApp(),
+        child: DevicePreview(
+          enabled: false,
+          builder: (_) => MyApp(),
+        ),
       ),
     ),
   );
@@ -140,27 +150,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                     return new BlocProvider(
                       create: (_) => new LoginBloc(
                         userRepository:
-                            RepositoryProvider.of<UserRepository>(context),
+                            RepositoryProvider.of<IUserRepository>(context),
                       ),
                       child: new LoginPage(),
                     );
                   } else if (authState is Authenticated) {
-                    return new RepositoryProvider(
-                      create: (_) => PostRepository(
-                        postDataProvider: PostDataProvider(),
-                      ),
-                      child: Builder(
-                        builder: (context) {
-                          return new BlocProvider<HomeBloc>(
-                            create: (_) => HomeBloc(
-                              postRepository:
-                                  RepositoryProvider.of<PostRepository>(
-                                      context),
-                            )..add(FetchPostsRequested()),
-                            child: HomePage(authState.user),
-                          );
-                        },
-                      ),
+                    return new BlocProvider<HomeBloc>(
+                      create: (_) => HomeBloc(
+                        postRepository:
+                            RepositoryProvider.of<IPostRepository>(context),
+                      )..add(FetchPostsRequested()),
+                      child: HomePage(authState.user),
                     );
                   }
 

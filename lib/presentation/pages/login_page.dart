@@ -4,8 +4,8 @@ import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.d
 import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
 import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
 import 'package:our_apps_template/presentation/widgets/custom_button.dart';
-import 'package:our_apps_template/utils/app_localizations.dart';
-import 'package:our_apps_template/utils/constants.dart';
+import 'package:our_apps_template/utils/localization/app_localizations.dart';
+import 'package:our_apps_template/utils/constants/constants.dart';
 
 class LoginPage extends StatefulWidget {
   @override
