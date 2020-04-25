@@ -10,3 +10,7 @@ General structures of architecture is following:
 - presentation
 - utils
 - main.dart
+
+> Template project uses JsonPlaceHolder api.
+
+# Explanation
