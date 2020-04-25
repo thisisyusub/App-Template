@@ -13,11 +13,13 @@ import 'package:our_apps_template/presentation/pages/login_page.dart';
 import 'package:our_apps_template/presentation/pages/splash_page.dart';
 import 'package:our_apps_template/presentation/router.dart';
 import 'package:our_apps_template/presentation/shared/app_colors.dart';
-import 'package:our_apps_template/utils/connectivity_facade.dart';
+import 'package:our_apps_template/utils/constants/enums.dart';
+import 'package:our_apps_template/utils/repository_factory.dart';
 import 'package:our_apps_template/utils/localization/app_localizations.dart';
 import 'package:our_apps_template/utils/simple_bloc_delegate.dart';
 
 import 'bloc/language_bloc/language_bloc.dart';
+import 'contractors/i_repository.dart';
 import 'contractors/impl_post_repository.dart';
 import 'contractors/impl_user_repository.dart';
 import 'presentation/pages/home_page.dart';
@@ -50,8 +52,10 @@ void main() async {
     themeMode = isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light;
   }
 
-  final userRepository = await ConnectivityFacade.startUserRepository();
-  final postRepository = await ConnectivityFacade.startPostRepository();
+  final userRepository =
+      await RepositoryFactory.createRepository(Repository.User);
+  final postRepository =
+      await RepositoryFactory.createRepository(Repository.Post);
 
   runApp(
     new MultiRepositoryProvider(
