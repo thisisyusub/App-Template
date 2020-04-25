@@ -1,5 +1,5 @@
 # My Apps Architecture
-![Heading image](heading.png)
+![Architecture diagram](diagram.png)
 The project includes template for architecture of Flutter Apps.
 
 I will explain each part a bit deeply in the previous sections. Sections are followings:
