@@ -1,33 +1,38 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.dart';
-import 'package:our_apps_template/bloc/language_bloc/language_bloc.dart';
-import 'package:our_apps_template/bloc/login_bloc/login_bloc.dart';
-import 'package:our_apps_template/bloc/home_bloc//home_bloc.dart';
-import 'package:our_apps_template/bloc/theme_bloc/theme_bloc.dart';
-import 'package:our_apps_template/data/service/shared_preference_service.dart';
-import 'package:our_apps_template/presentation/pages/home_page.dart';
-import 'package:our_apps_template/presentation/pages/login_page.dart';
-import 'package:our_apps_template/presentation/pages/splash_page.dart';
-import 'package:our_apps_template/presentation/router.dart';
-import 'package:our_apps_template/presentation/shared/app_colors.dart';
-import 'package:our_apps_template/utils/constants/enums.dart';
-import 'package:our_apps_template/utils/repository_factory.dart';
-import 'package:our_apps_template/utils/localization/app_localizations.dart';
-import 'package:our_apps_template/utils/simple_bloc_delegate.dart';
 
-import 'bloc/language_bloc/language_bloc.dart';
-import 'contractors/i_repository.dart';
-import 'contractors/impl_post_repository.dart';
-import 'contractors/impl_user_repository.dart';
-import 'presentation/pages/home_page.dart';
+import './bloc/authentication_bloc/authentication_bloc.dart';
+import './bloc/language_bloc/language_bloc.dart';
+import './bloc/login_bloc/login_bloc.dart';
+import './bloc/home_bloc/home_bloc.dart';
+import './bloc/home_bloc/home_event.dart';
+import './bloc/theme_bloc/theme_bloc.dart';
+import './data/service/shared_preference_service.dart';
+import './presentation/pages/home_page.dart';
+import './presentation/pages/login_page.dart';
+import './presentation/pages/splash_page.dart';
+import './presentation/router.dart';
+import './presentation/shared/app_colors.dart';
+import './utils/constants/enums.dart';
+import './utils/repository_factory.dart';
+import './utils/localization/app_localizations.dart';
+import './utils/simple_bloc_observer.dart';
+import './contractors/impl_post_repository.dart';
+import './contractors/impl_user_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  BlocSupervisor.delegate = SimpleBlocDelegate();
 
+  Bloc.observer = SimpleBlocObserver();
   // TODO: make good logic for language and theme config
   // shared pref service
   final sharedPrefService = await SharedPreferencesService.instance;
@@ -47,7 +52,7 @@ void main() async {
   final bool isDarkModeEnabled = sharedPrefService.isDarkModeEnabled;
   if (isDarkModeEnabled == null) {
     sharedPrefService.setDarkModeInfo(false);
-    themeMode = ThemeMode.system;
+    themeMode = ThemeMode.light;
   } else {
     themeMode = isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light;
   }

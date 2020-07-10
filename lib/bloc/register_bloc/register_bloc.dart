@@ -1,41 +1,43 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:our_apps_template/contractors/impl_user_repository.dart';
-import 'package:our_apps_template/data/model/user.dart';
-import 'package:our_apps_template/utils/exceptions/exceptions.dart';
-import 'package:our_apps_template/utils/validators/validators.dart';
-import 'package:rxdart/rxdart.dart';
 
-part 'register_event.dart';
+import '../../contractors/impl_user_repository.dart';
+import '../../data/model/user.dart';
+import '../../utils/exceptions/exceptions.dart';
+import '../../utils/validators/validators.dart';
 
-part 'register_state.dart';
+part './register_event.dart';
+part './register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  RegisterBloc({@required this.userRepository})
-      : assert(userRepository != null);
+  RegisterBloc({@required this.userRepository}) : super(RegisterState.empty());
 
   final IUserRepository userRepository;
 
-  @override
-  RegisterState get initialState => RegisterState.empty();
-
-  @override
-  Stream<RegisterState> transformEvents(
-    Stream<RegisterEvent> events,
-    Stream<RegisterState> Function(RegisterEvent event) next,
-  ) {
-    final nonDebounceStream = events.where((event) {
-      return (event is! IdChanged);
-    });
-    final debounceStream = events.where((event) {
-      return (event is IdChanged);
-    }).debounceTime(Duration(milliseconds: 300));
-    return super.transformEvents(
-      nonDebounceStream.mergeWith([debounceStream]),
-      next,
-    );
-  }
+  // @override
+  // Stream<RegisterState> transformEvents(
+  //   Stream<RegisterEvent> events,
+  //   Stream<RegisterState> Function(RegisterEvent event) next,
+  // ) {
+  //   final nonDebounceStream = events.where((event) {
+  //     return (event is! IdChanged);
+  //   });
+  //   final debounceStream = events.where((event) {
+  //     return (event is IdChanged);
+  //   }).debounceTime(Duration(milliseconds: 300));
+  //   return super.transformEvents(
+  //     nonDebounceStream.mergeWith([debounceStream]),
+  //     next,
+  //   );
+  // }
 
   @override
   Stream<RegisterState> mapEventToState(

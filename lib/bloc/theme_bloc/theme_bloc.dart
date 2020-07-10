@@ -1,19 +1,22 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:our_apps_template/data/service/shared_preference_service.dart';
+import '../../data/service/shared_preference_service.dart';
 
-part 'theme_state.dart';
-
-part 'theme_event.dart';
+part './theme_state.dart';
+part './theme_event.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBloc(this.defaultThemeMode) : assert(defaultThemeMode != null);
+  ThemeBloc(this.defaultThemeMode) : super(ThemeState(defaultThemeMode));
 
   final ThemeMode defaultThemeMode;
-
-  @override
-  ThemeState get initialState => ThemeState(defaultThemeMode);
 
   @override
   Stream<ThemeState> mapEventToState(ThemeEvent event) async* {

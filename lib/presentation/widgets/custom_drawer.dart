@@ -1,10 +1,18 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:our_apps_template/bloc/theme_bloc/theme_bloc.dart';
-import 'package:our_apps_template/data/model/user.dart';
-import 'package:our_apps_template/presentation/dialogs/language_dialog.dart';
-import 'package:our_apps_template/presentation/dialogs/log_out_dialog.dart';
-import 'package:our_apps_template/utils/constants/constants.dart';
+
+import '../../bloc/theme_bloc/theme_bloc.dart';
+import '../../data/model/user.dart';
+import '../dialogs/language_dialog.dart';
+import '../dialogs/log_out_dialog.dart';
+import '../../utils/constants/constants.dart';
 import '../../utils/extensions/translation_extension.dart';
 
 class CustomDrawer extends StatelessWidget {

@@ -5,13 +5,4 @@
  * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
  */
 
-import 'package:equatable/equatable.dart';
-
-abstract class HomeEvent extends Equatable {
-  const HomeEvent();
-
-  @override
-  List<Object> get props => [];
-}
-
-class FetchPostsRequested extends HomeEvent {}
+abstract class IBaseRepository {}

@@ -1,6 +1,14 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'package:flutter/material.dart';
-import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
-import 'package:our_apps_template/utils/constants/constants.dart';
+
+import '../shared/app_text_styles.dart';
+import '../../utils/constants/constants.dart';
 import '../../utils/extensions/translation_extension.dart';
 
 class SplashPage extends StatefulWidget {

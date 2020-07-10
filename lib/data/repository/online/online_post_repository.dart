@@ -1,7 +1,14 @@
-import 'package:our_apps_template/contractors/impl_post_repository.dart';
-import 'package:our_apps_template/data/model/post.dart';
-import 'package:our_apps_template/data/service/api_service.dart';
-import 'package:our_apps_template/utils/exceptions/exceptions.dart';
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
+import '../../../contractors/impl_post_repository.dart';
+import '../../model/post.dart';
+import '../../service/api_service.dart';
+import '../../../utils/exceptions/exceptions.dart';
 
 class OnlinePostRepository extends IPostRepository {
   final _apiService = ApiService();

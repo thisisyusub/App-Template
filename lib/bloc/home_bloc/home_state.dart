@@ -1,4 +1,12 @@
-part of 'home_bloc.dart';
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
+import 'package:equatable/equatable.dart';
+import '../../data/model/post.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();

@@ -1,15 +1,23 @@
-import 'package:our_apps_template/contractors/i_repository.dart';
-import 'package:our_apps_template/data/repository/offline/offline_post_repository.dart';
-import 'package:our_apps_template/data/repository/offline/offline_user_repository.dart';
-import 'package:our_apps_template/data/repository/online/online_post_repository.dart';
-import 'package:our_apps_template/data/repository/online/online_user_repository.dart';
-import 'package:our_apps_template/data/service/connectivity_service.dart';
-import 'package:our_apps_template/utils/constants/enums.dart';
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
+import '../contractors/base_repository.dart';
+import '../data/repository/offline/offline_post_repository.dart';
+import '../data/repository/offline/offline_user_repository.dart';
+import '../data/repository/online/online_post_repository.dart';
+import '../data/repository/online/online_user_repository.dart';
+import '../data/service/connectivity_service.dart';
+import './constants/enums.dart';
 
 class RepositoryFactory {
   RepositoryFactory._();
 
-  static Future<IRepository> createRepository(Repository repositoryType) async {
+  static Future<IBaseRepository> createRepository(
+      Repository repositoryType) async {
     final isConnected = await ConnectivityService.isConnected();
 
     switch (repositoryType) {

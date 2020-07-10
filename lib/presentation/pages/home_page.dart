@@ -1,14 +1,23 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:our_apps_template/bloc/home_bloc//home_bloc.dart';
-import 'package:our_apps_template/bloc/theme_bloc/theme_bloc.dart';
-import 'package:our_apps_template/data/model/post.dart';
-import 'package:our_apps_template/data/model/user.dart';
-import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
-import 'package:our_apps_template/presentation/widgets/custom_drawer.dart';
-import 'package:our_apps_template/utils/constants/constants.dart';
+
+import '../../bloc/theme_bloc/theme_bloc.dart';
+import '../../bloc/home_bloc/home_bloc.dart';
+import '../../bloc/home_bloc/home_state.dart';
+import '../../data/model/post.dart';
+import '../../data/model/user.dart';
+import '../shared/app_text_styles.dart';
+import '../widgets/custom_drawer.dart';
+import '../../utils/constants/constants.dart';
 import '../../utils/extensions/translation_extension.dart';
 
 class HomePage extends StatelessWidget {

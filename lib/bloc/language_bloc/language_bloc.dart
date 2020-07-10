@@ -1,22 +1,26 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:our_apps_template/data/service/shared_preference_service.dart';
-import 'package:our_apps_template/utils/constants/constants.dart';
-import 'package:our_apps_template/utils/constants/enums.dart';
 
-part 'language_event.dart';
+import '../../data/service/shared_preference_service.dart';
+import '../../utils/constants/constants.dart';
+import '../../utils/constants/enums.dart';
 
-part 'language_state.dart';
+part './language_event.dart';
+part './language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
-  LanguageBloc(this.defaultLocale) : assert(defaultLocale != null);
+  LanguageBloc(this.defaultLocale) : super(LanguageState(defaultLocale));
 
   final Locale defaultLocale;
-
-  @override
-  LanguageState get initialState => LanguageState(defaultLocale);
 
   @override
   Stream<LanguageState> mapEventToState(LanguageEvent event) async* {

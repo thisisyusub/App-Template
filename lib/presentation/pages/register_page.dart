@@ -1,9 +1,17 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:our_apps_template/bloc/authentication_bloc/authentication_bloc.dart';
-import 'package:our_apps_template/bloc/register_bloc/register_bloc.dart';
-import 'package:our_apps_template/presentation/shared/app_text_styles.dart';
-import 'package:our_apps_template/presentation/widgets/custom_button.dart';
+
+import '../../bloc/authentication_bloc/authentication_bloc.dart';
+import '../../bloc/register_bloc/register_bloc.dart';
+import '../shared/app_text_styles.dart';
+import '../widgets/custom_button.dart';
 
 class RegisterPage extends StatefulWidget {
   @override

@@ -1,10 +1,18 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:our_apps_template/bloc/register_bloc/register_bloc.dart';
-import 'package:our_apps_template/contractors/impl_user_repository.dart';
-import 'package:our_apps_template/presentation/pages/register_page.dart';
-import 'package:our_apps_template/utils/constants/constants.dart';
+
+import '../bloc/register_bloc/register_bloc.dart';
+import '../contractors/impl_user_repository.dart';
+import './pages/register_page.dart';
+import '../utils/constants/constants.dart';
 
 class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {

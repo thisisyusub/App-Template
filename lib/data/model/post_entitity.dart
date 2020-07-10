@@ -1,4 +1,11 @@
-import 'package:our_apps_template/data/model/base_entity.dart';
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
+import './base_entity.dart';
 
 class PostEntity extends EntityBase {
   final int userId;

@@ -1,43 +1,46 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'package:our_apps_template/contractors/impl_user_repository.dart';
-import 'package:our_apps_template/data/model/user.dart';
-import 'package:our_apps_template/utils/exceptions/exceptions.dart';
-import 'package:our_apps_template/utils/validators/validators.dart';
-import 'package:rxdart/rxdart.dart';
 
-part 'login_event.dart';
+import '../../contractors/impl_user_repository.dart';
+import '../../data/model/user.dart';
+import '../../utils/exceptions/exceptions.dart';
+import '../../utils/validators/validators.dart';
 
-part 'login_state.dart';
+part './login_event.dart';
+part './login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc({@required this.userRepository}) : assert(userRepository != null);
+  LoginBloc({@required this.userRepository}) : super(LoginState.empty());
 
   final IUserRepository userRepository;
 
-  @override
-  LoginState get initialState => LoginState.empty();
+  // @override
+  // Stream<LoginState> transform(
+  //   Stream<LoginEvent> events,
+  //   Stream<LoginState> Function(LoginEvent event) next,
+  // ) {
+  //   final nonDebounceStream = events.where((event) {
+  //     return (event is! IdChanged);
+  //   });
 
-  @override
-  Stream<LoginState> transformEvents(
-    Stream<LoginEvent> events,
-    Stream<LoginState> Function(LoginEvent event) next,
-  ) {
-    final nonDebounceStream = events.where((event) {
-      return (event is! IdChanged);
-    });
+  //   final debounceStream = events.where((event) {
+  //     return (event is IdChanged);
+  //   }).debounceTime(Duration(milliseconds: 300));
 
-    final debounceStream = events.where((event) {
-      return (event is IdChanged);
-    }).debounceTime(Duration(milliseconds: 300));
-
-    return super.transformEvents(
-      nonDebounceStream.mergeWith([debounceStream]),
-      next,
-    );
-  }
+  //   return super.transform(
+  //     nonDebounceStream.mergeWith([debounceStream]),
+  //     next,
+  //   );
+  // }
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {

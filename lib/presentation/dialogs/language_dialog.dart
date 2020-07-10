@@ -1,9 +1,17 @@
-import 'package:flag/flag.dart';
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:our_apps_template/bloc/language_bloc/language_bloc.dart';
-import 'package:our_apps_template/utils/constants/constants.dart';
-import 'package:our_apps_template/utils/constants/enums.dart';
+import 'package:flag/flag.dart';
+
+import '../../bloc/language_bloc/language_bloc.dart';
+import '../../utils/constants/constants.dart';
+import '../../utils/constants/enums.dart';
 import '../../utils/extensions/translation_extension.dart';
 
 class LanguageDialog extends StatelessWidget {
@@ -15,7 +23,11 @@ class LanguageDialog extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: GestureDetector(
-              child: Flags.getMiniFlag('AZ', 50, 0),
+              child: Flag(
+                'AZ',
+                height: 50,
+                width: 0,
+              ),
               onTap: () {
                 BlocProvider.of<LanguageBloc>(context)
                     .add(LanguageSelected(Language.AZ));
@@ -24,7 +36,11 @@ class LanguageDialog extends StatelessWidget {
           ),
           Expanded(
             child: GestureDetector(
-              child: Flags.getMiniFlag('US', 50, 0),
+              child: Flag(
+                'US',
+                height: 50,
+                width: 0,
+              ),
               onTap: () {
                 BlocProvider.of<LanguageBloc>(context)
                     .add(LanguageSelected(Language.EN));
@@ -33,7 +49,11 @@ class LanguageDialog extends StatelessWidget {
           ),
           Expanded(
             child: GestureDetector(
-              child: Flags.getMiniFlag('RU', 50, 0),
+              child: Flag(
+                'RU',
+                height: 50,
+                width: 0,
+              ),
               onTap: () {
                 BlocProvider.of<LanguageBloc>(context)
                     .add(LanguageSelected(Language.RU));

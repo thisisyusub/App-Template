@@ -1,24 +1,28 @@
+/*
+ * Copyright (c) 2020, Kanan Yusubov. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential
+ * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
+ */
+
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:our_apps_template/contractors/impl_user_repository.dart';
-import 'package:our_apps_template/data/model/user.dart';
 import 'package:meta/meta.dart';
-import 'package:our_apps_template/data/service/shared_preference_service.dart';
 
-part 'authentication_event.dart';
+import '../../contractors/impl_user_repository.dart';
+import '../../data/model/user.dart';
+import '../../data/service/shared_preference_service.dart';
 
-part 'authentication_state.dart';
+part './authentication_event.dart';
+
+part './authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc({@required this.userRepository})
-      : assert(userRepository != null);
+  AuthenticationBloc({@required this.userRepository}) : super(Uninitialized());
 
   final IUserRepository userRepository;
-
-  @override
-  AuthenticationState get initialState => Uninitialized();
 
   @override
   Stream<AuthenticationState> mapEventToState(
@@ -27,6 +31,7 @@ class AuthenticationBloc
     if (event is AppStarted) {
       final userLogged = (await SharedPreferencesService.instance).isUserLogged;
       if (userLogged != null) {
+        // TODO: Change this part
         if (userLogged) {
           yield Authenticated(User(
             username: 'Kanan Yusubov',
