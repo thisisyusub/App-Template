@@ -34,6 +34,7 @@ class LanguageDialog extends StatelessWidget {
               },
             ),
           ),
+          Spacer(),
           Expanded(
             child: GestureDetector(
               child: Flag(
@@ -47,6 +48,7 @@ class LanguageDialog extends StatelessWidget {
               },
             ),
           ),
+          Spacer(),
           Expanded(
             child: GestureDetector(
               child: Flag(

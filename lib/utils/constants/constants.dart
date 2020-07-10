@@ -24,7 +24,8 @@ class Routes {
 
   static const String home = 'Home';
   static const String login = 'Login';
-  static const String register = 'register';
+  static const String register = 'Register';
+  static const String favorites = 'Favorites';
 }
 
 /// Constants for lang translation keys

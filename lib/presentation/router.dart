@@ -13,6 +13,7 @@ import '../bloc/register_bloc/register_bloc.dart';
 import '../contractors/impl_user_repository.dart';
 import './pages/register_page.dart';
 import '../utils/constants/constants.dart';
+import './pages/favorite_page.dart';
 
 class Router {
   static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {
@@ -25,6 +26,10 @@ class Router {
             ),
             child: RegisterPage(),
           ),
+        );
+      case Routes.favorites:
+        return MaterialPageRoute(
+          builder: (_) => FavoritePage(),
         );
       default:
         return MaterialPageRoute(

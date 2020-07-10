@@ -34,19 +34,27 @@ class HomePage extends StatelessWidget {
       ),
       appBar: AppBar(
         title: Text(LanguageKeys.homePage).translate(context),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: () => Navigator.of(context).pushNamed(Routes.favorites),
+          ),
+        ],
       ),
-      body: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, postState) {
-          if (postState is PostLoadFailure) {
-            _buildPostLoadFailureWidget(postState);
-          } else if (postState is PostLoadInProgress) {
-            return _buildPostLoadInProgressWidget();
-          } else if (postState is PostLoadSuccess) {
-            return PostSuccessWidget(postState.posts);
-          }
+      body: SafeArea(
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, postState) {
+            if (postState is PostLoadFailure) {
+              _buildPostLoadFailureWidget(postState);
+            } else if (postState is PostLoadInProgress) {
+              return _buildPostLoadInProgressWidget();
+            } else if (postState is PostLoadSuccess) {
+              return PostSuccessWidget(postState.posts);
+            }
 
-          return Container();
-        },
+            return Container();
+          },
+        ),
       ),
     );
   }
