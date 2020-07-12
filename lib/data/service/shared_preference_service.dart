@@ -64,4 +64,9 @@ class SharedPreferencesService {
       await _preferences.setString(SharedPrefKeys.email, email);
 
   String get userEmail => _preferences.getString(SharedPrefKeys.email);
+  
+  Future<void> setDataIsInDb(bool isInDb) async =>
+      await _preferences.setBool(SharedPrefKeys.isInDb, isInDb);
+
+  bool get isInDb => _preferences.getBool(SharedPrefKeys.isInDb);
 }

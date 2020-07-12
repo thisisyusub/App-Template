@@ -12,22 +12,40 @@ class Post {
   int id;
   String title;
   String body;
+  int isFavorite;
 
-  Post({this.userId, this.id, this.title, this.body});
+  Post({
+    this.userId,
+    this.id,
+    this.title,
+    this.body,
+    this.isFavorite = 0,
+  });
 
   Post.fromJson(Map<String, dynamic> json) {
     userId = json['userId'];
     id = json['id'];
     title = json['title'];
     body = json['body'];
+    isFavorite = 0;
   }
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() =>
+      {
         '${DatabaseKeys.postId}': id,
         '${DatabaseKeys.userId}': userId,
         '${DatabaseKeys.title}': title,
         '${DatabaseKeys.body}': body,
+        '${DatabaseKeys.isFavorite}': isFavorite,
       };
+
+  Post.fromMap(Map<String, dynamic> json) {
+    userId = json['userId'];
+    id = json['id'];
+    title = json['title'];
+    body = json['body'];
+    isFavorite = json['isFavorite'];
+  }
 
   @override
   String toString() => '''
@@ -35,5 +53,6 @@ class Post {
   ${DatabaseKeys.userId} : $userId,
   ${DatabaseKeys.title} : $title,
   ${DatabaseKeys.body} : $body,
+  ${DatabaseKeys.isFavorite}: $isFavorite,
   ''';
 }

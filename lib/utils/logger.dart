@@ -1,5 +1,9 @@
 class Logger {
-  static void log({String tag, String message}) {
+  final String tag;
+
+  const Logger([this.tag]);
+
+  void log(String message) {
     if (tag != null)
       print('[$tag] : $message');
     else

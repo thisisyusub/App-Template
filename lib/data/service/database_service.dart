@@ -35,7 +35,8 @@ class DatabaseService {
           ${DatabaseKeys.postId} integer primary key,
           ${DatabaseKeys.userId} integer not null,
           ${DatabaseKeys.title} text not null,
-          ${DatabaseKeys.body} text not null)''');
+          ${DatabaseKeys.body} text not null,
+          ${DatabaseKeys.isFavorite} integer not null )''');
 
         print('Post database was crated');
 
@@ -44,7 +45,7 @@ class DatabaseService {
           ${DatabaseKeys.postId} integer primary key,
           ${DatabaseKeys.userId} integer not null,
           ${DatabaseKeys.title} text not null,
-          ${DatabaseKeys.body} text not null)''');
+          ${DatabaseKeys.body} integer not null)''');
       });
 
       print('Comment database was crated');
@@ -75,11 +76,11 @@ class DatabaseService {
     return result;
   }
 
-  Future<List<Post>> getAllPosts(int postId) async {
+  Future<List<Post>> getAllPosts() async {
     var result = await _database.query(DatabaseKeys.postTable);
 
     List<Post> posts = result.isNotEmpty
-        ? result.map((post) => Post.fromJson(post)).toList()
+        ? result.map((post) => Post.fromMap(post)).toList()
         : [];
 
     return posts;

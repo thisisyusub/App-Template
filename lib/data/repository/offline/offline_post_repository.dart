@@ -5,13 +5,17 @@
  * Written by: Kanan Yusubov <kanan.yusub@gmail.com>, July 2020
  */
 
-import 'package:our_apps_template/contractors/impl_post_repository.dart';
-import 'package:our_apps_template/data/model/post.dart';
+
+import '../../../contractors/impl_post_repository.dart';
+import '../../model/post.dart';
+import '../../service/database_service.dart';
+
 
 class OfflinePostRepository implements IPostRepository {
   @override
-  Future<List<Post>> getAllPosts() {
-    // TODO: read from database
-    return null;
+  Future<List<Post>> getAllPosts() async {
+    final db = await DatabaseService.instance;
+    final posts = db.getAllPosts();
+    return posts;
   }
 }

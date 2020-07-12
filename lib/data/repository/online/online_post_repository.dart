@@ -10,6 +10,7 @@ import '../../model/post.dart';
 import '../../service/api_service.dart';
 import '../../../utils/exceptions/exceptions.dart';
 import '../../../utils/logger.dart';
+import '../../service/shared_preference_service.dart';
 
 class OnlinePostRepository extends IPostRepository {
   final _apiService = ApiService();
@@ -18,16 +19,16 @@ class OnlinePostRepository extends IPostRepository {
   Future<List<Post>> getAllPosts() async {
     String endPoint = '/posts';
 
-    Logger.log(message: '[OnlinePostRepository]: all posts fetching...');
+    Logger('OnlinePostRepository').log('all posts fetching...');
     final result = await _apiService.dio.get(endPoint);
 
-    Logger.log(
-      tag: '${result.statusCode}',
-      message: '[OnlinePostRepository]: all posts fetching: ${result.data}',
-    );
-
+    Logger('OnlinePostRepository: ${result.statusCode}')
+        .log('all posts fetching: ${result.data}');
     if (result.statusCode == 200) {
       final converted = result.data.map<Post>((x) => Post.fromJson(x)).toList();
+      (await SharedPreferencesService.instance).setDataIsInDb(true);
+      final isDataInDb = (await SharedPreferencesService.instance).isInDb;
+      Logger('OnlinePostRepository').log('isInDb: $isDataInDb}');
       return converted;
     } else {
       throw HttpException('Error occured with ${result.statusCode}');

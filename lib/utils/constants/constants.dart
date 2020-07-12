@@ -16,6 +16,7 @@ class SharedPrefKeys {
   static const String languageCode = 'languageCode';
   static const String username = 'username';
   static const String email = 'email';
+  static const String isInDb = 'isInDb';
 }
 
 /// Constants for Routes
@@ -68,6 +69,7 @@ class DatabaseKeys {
   static const String userId = 'userId';
   static const String title = 'title';
   static const String body = 'body';
+  static const String isFavorite = 'isFavorite';
 
   /// [Comment table]
   static const String commentTable = 'Comment';

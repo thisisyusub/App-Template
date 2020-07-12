@@ -99,7 +99,11 @@ class PostSuccessWidget extends StatelessWidget {
               title: Text(posts[index].title),
               subtitle: Text(posts[index].body),
               trailing: IconButton(
-                icon: Icon(Icons.favorite_border),
+                icon: Icon(
+                  posts[index].isFavorite == 1
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                ),
                 onPressed: () {},
               ),
               isThreeLine: true,
